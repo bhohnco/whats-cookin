@@ -11,11 +11,11 @@ class Recipe {
         this.tags = tags;
     }
 
-    generateIngredientNames(recipe) {
+    generateIngredientNames() {
         let ingredientNameList = [];
-        recipe.ingredients.forEach(ingredient => {
+        this.ingredients.forEach(ingredient => {
             const id = ingredient.id;
-            ingredientsData.find(ingredientData => {
+            ingredientsData.forEach(ingredientData => {
                 if (ingredientData.id === id) {
                     ingredientNameList.push(ingredientData.name);
                 }

@@ -1,4 +1,4 @@
-class Reciperepo() {
+class Reciperepo {
     constructor(recipeList) {
       this.recipeList = recipeList;
     }
@@ -17,15 +17,18 @@ class Reciperepo() {
 
     returnNameList(searchTerms) {
       let returnList = [];
-      searchTerms.foreach(term => {
+      searchTerms.forEach(term => {
         this.recipeList.forEach(recipe => {
-          if (recipe.tags.includes(term)) {
+          const lowerCaseName = recipe.name.toLowerCase();
+          let recipeNames = lowerCaseName.split(' ');
+          const recipeTerms = recipeNames.concat(recipe.generateIngredientNames());
+          if (recipeTerms.includes(term) && !returnList.includes(recipe)) {
             returnList.push(recipe);
           }
         });
       });
       return returnList;
-    });
-}
+    };
+};
 
 module.exports = Reciperepo;
