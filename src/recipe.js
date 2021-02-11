@@ -11,9 +11,9 @@ class Recipe {
         this.tags = tags;
     }
 
-    generateIngredientNames(recipe) {
+    generateIngredientNames() {
         let ingredientNameList = [];
-        recipe.ingredients.forEach(ingredient => {
+        this.ingredients.forEach(ingredient => {
             const id = ingredient.id;
             ingredientsData.find(ingredientData => {
                 if (ingredientData.id === id) {
@@ -38,7 +38,6 @@ class Recipe {
 
     getInstructions() {
          let detailList = [];
-         console.log(typeof(this.instructions))
         this.instructions.forEach(instruction => {
             detailList.push(instruction.instruction)
          });
