@@ -1,0 +1,85 @@
+/* GENERAL */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+}
+
+
+
+/* Header styles */
+
+header {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  margin: 2em auto 3em;
+  border-bottom: solid 2px;
+}
+
+.header-img {
+  width: 100%
+}
+
+.header-logo {
+  width: 58%;
+}
+
+.header-controls {
+  width: 29%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-button {
+  width: 30%;
+  display: flex;
+  margin-right: 20px;
+}
+
+.user-icon {
+  background-color: #FEC001;
+  border-radius: 50%;
+  width: 100%;
+}
+
+.search-bar {
+  width: 70%;
+  font-style: italic;
+  font-size: 1.6em;
+  text-align: center;
+  border: solid 1px;
+  padding: 3px;
+}
+
+/* TYPE */
+
+
+/* font-family: 'Raleway', sans-serif; */
+
+/* UTILITY */
+.hidden {
+  display: none;
+}
+
+
+/*
+Colors
+Yellow: FEC001
+
+ */
+
+/*
+Size
+Display
+Flex rules
+Color
+Font
+Text
+Margin
+Border
+Padding
+Other
+ */

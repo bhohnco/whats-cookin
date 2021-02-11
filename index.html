@@ -2,21 +2,29 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="style.css"><link>
+    <link rel="stylesheet" href="../src/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;1,300&display=swap" rel="stylesheet">
     <title>What's Cookin'?</title>
   </head>
   <body>
     <header>
-      <img id="headerLogo" class="header-logo" src="./assets/index_LOGO.png" alt="The What's Cookin' logo">
-      <button id="userButton" class="user-button">USER</button>
-      <form>SEARCH</form>
+      <div id="headerLogo" class="header-logo">
+        <img class="header-img" src="./assets/index_LOGO.png" alt="The What's Cookin' logo">
+      </div>
+      <div class="header-controls">
+        <div id="userButton" class="user-button">
+          <img class="user-icon" src="./assets/Sample_User_Icon.png">
+        </div>
+        <form class="search-bar">find a recipe</form>
+      </div>
     </header>
     <section>
       <div class="recipe-card-small">
         <img src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
         <h3>Loaded Chocolate Chip Pudding Cookie Cups</h3>
         <button class="fav-button-small">Favorite</button>
-        <button class="fav-button-small">Cook List</button>
+        <button class="cooklist-button-small">Cook List</button>
         <ul class="tag-list-small">
           <li>antipasti</li>
           <li>starter</li>
@@ -28,13 +36,13 @@
       </div>
     </section>
 
-    <script type="text/javascript" src="../data/ingredients.js"></script>
+    <!-- <script type="text/javascript" src="../data/ingredients.js"></script> -->
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/recipes.js"></script>
     <script type="text/javascript" src="../src/recipe.js"></script>
     <script type="text/javascript" src="../src/Reciperepo.js"></script>
     <script type="text/javascript" src="../src/pantry.js"></script>
     <script type="text/javascript" src="../src/user.js"></script>
-    <script type="text/javascript" src="./scripts.js"></script>
+    <script type="text/javascript" src="../src/scripts.js"></script>
   </body>
 </html>
