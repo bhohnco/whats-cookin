@@ -10,6 +10,7 @@ class Pantry {
       ingredientsData.map(ingredientData => {
         if (ingredientData.id === id) {
           ingredient.name =  ingredientData.name;
+          ingredient.quantity.amount = ingredientData.amount;
         }
       })
     })
@@ -17,4 +18,8 @@ class Pantry {
   }
 
 
+//ingredients and *amounts* of ingredient**
+//add return for ingredients needed**
+//remove ingredients when a meal is cooked take in
+// parameter of recipe and remove that list from pantry
 }
