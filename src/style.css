@@ -48,22 +48,69 @@ header {
 .search-bar {
   width: 70%;
   font-style: italic;
-  font-size: 1.6em;
+  font-size: 1.35em;
   text-align: center;
   border: solid 1px;
   padding: 3px;
 }
 
-/* TYPE */
+/* Recipe list */
+.recipe-list {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+}
 
 
-/* font-family: 'Raleway', sans-serif; */
+/* Recipe cards */
+
+.recipe-card-small {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: 20px auto;
+  border: solid 2px;
+}
+
+h3 {
+  background-color: #FEC001;
+  font-size: 2.25em;
+  padding: 10px 0px 10px 10px;
+}
+
+.small-card-bottom {
+  background-color: white;
+  display: flex;
+  border-top: solid black 2px;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.fav-button-small {
+  width: 8%;
+  margin: 10px;
+}
+
+.to-cook-button-small {
+  width: 8%;
+  margin: 10px;
+}
+
+.tag-list-small {
+  font-size: 1.75em;
+  align-self: flex-end;
+  padding: 4px;
+  margin-bottom: 28px;
+}
 
 /* UTILITY */
 .hidden {
   display: none;
 }
 
+/* font-family: 'Raleway', sans-serif; */
 
 /*
 Colors
