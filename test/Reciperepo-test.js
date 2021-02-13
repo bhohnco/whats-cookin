@@ -71,7 +71,7 @@ describe('Recipe Repo', function() {
       expect(nameList[1]).to.deep.equal(recipe2);
     });
 
-    it.only('should return a filtered list based on ingredients', function() {
+    it('should return a filtered list based on ingredients', function() {
       const nameArray = ['vanilla', 'salt', 'eggs'];
       const nameList = recipeRepo.returnNameList(nameArray);
 
