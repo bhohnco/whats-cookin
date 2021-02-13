@@ -31,4 +31,6 @@ class Reciperepo {
     };
 };
 
-module.exports = Reciperepo;
+if (typeof module !== 'undefined') {
+  module.exports = Reciperepo;
+}
