@@ -1,14 +1,19 @@
 // Global variables
 
-const protoRecipes = new Array(recipeData.length);
-const recipes = protoRecipes.fill(0);
-const repo = recipes.map((recipe, i) => {
-  const newRecipe = new Recipe(recipeData[i].id, recipeData[i].image, recipeData[i].ingredients, recipeData[i].instructions, recipeData[i].name, recipeData[i].tags);
+const repo = recipeData.map(recipe => {
+  const newRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
   return newRecipe;
 });
 const allRecipes = new Reciperepo(repo);
+
+const ingredientList = ingredientsData.map(ingredient => {
+  const newIngredient = new Ingredient(ingredient);
+  return newIngredient;
+});
+
 // const userData = usersData[getRandomIndex(usersData)];
 // const currentUser = new User(userData.name, userData.id, userData.pantry);
+
 
 // Event listeners
 window.addEventListener('load', displayHomePage);
@@ -53,39 +58,17 @@ window.addEventListener('load', displayHomePage);
     })
   }
 
-
-    // const recipeCards = list.recipeList.map(recipe => {
-    //   const tagList = cleanUpTagArr(recipe.tags);
-    //   const cardText = `
-    //   <div class="recipe-card-small">
-    //     <img src=${recipe.image}>
-    //     <h3>${recipe.name}</h3>
-    //       <div class="small-card-bottom">
-    //         <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
-    //         <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
-    //         <p class="tag-list-small">${tagList}</p>
-    //       </div>
-    //   </div>
-    //   `
-    //   console.log(cardText);
-    //   return cardText;
-    // })
-    // // console.log(recipeCards);
-    // recipeCards.forEach(card => {
-    //   console.log(card);
-    //   recipeList.innerHTML += card;
-    // })
-
   function cleanUpTagArr(tagArray) {
-    if (tagArray.length > 1) {
+    if (tagArray.length === 0) {
+      return [' '];
+    } else if (tagArray.length > 1) {
       let tagList = tagArray.shift();
       const returnString = tagArray.reduce((string, tag) => {
         string += `, ${tag}`;
         return string;
       }, tagList);
       return returnString;
-     }
-     else return tagArray[0];
+     } else return tagArray[0];
   }
 
   function convertIdToName(id) {
