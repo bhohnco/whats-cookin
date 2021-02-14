@@ -42,9 +42,11 @@ window.addEventListener('load', displayHomePage);
         <img src=${recipe.image}>
         <h3>${recipe.name}</h3>
           <div class="small-card-bottom">
-            <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
-            <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
-            <p class="tag-list-small">${tagList}</p>
+            <div class="small-card-bottom">
+              <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
+              <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
+              <p class="tag-list-small">${tagList}</p>
+            </div>
           </div>
       </div>`
       recipeList.innerHTML += cardText;

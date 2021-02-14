@@ -54,6 +54,10 @@ header {
   padding: 3px;
 }
 
+.search-tab {
+  
+}
+
 /* Recipe list */
 .recipe-list {
   display: flex;
@@ -70,39 +74,47 @@ header {
   flex-direction: column;
   align-content: center;
   margin: 20px auto;
-  border: solid 2px;
+  border: solid 4px;
 }
 
 h3 {
   background-color: #FEC001;
   font-size: 2.25em;
+  border-bottom: solid black 3px;
   padding: 10px 0px 10px 10px;
 }
 
 .small-card-bottom {
   background-color: white;
   display: flex;
-  border-top: solid black 2px;
+  /* border-top: solid black 2px; */
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
 }
 
 .fav-button-small {
-  width: 8%;
+  /* background-color: red; */
+  width: 70px;
   margin: 10px;
+  border-radius: 50%;
 }
 
 .to-cook-button-small {
-  width: 8%;
+  width: 70px;
   margin: 10px;
+  border-radius: 50%;
+}
+
+.card-buttons {
+  align-self:
 }
 
 .tag-list-small {
   font-size: 1.75em;
   align-self: flex-end;
   padding: 4px;
-  margin-bottom: 28px;
+  align-self: center;
 }
 
 /* UTILITY */
