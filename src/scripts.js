@@ -1,3 +1,17 @@
+// Global variables
+
+const protoRecipes = new Array(recipeData.length);
+const recipes = protoRecipes.fill(0);
+const repo = recipes.map((recipe, i) => {
+  const newRecipe = new Recipe(recipeData[i].id, recipeData[i].image, recipeData[i].ingredients, recipeData[i].instructions, recipeData[i].name, recipeData[i].tags);
+  return newRecipe;
+});
+const allRecipes = new Reciperepo(repo);
+// const userData = usersData[getRandomIndex(usersData)];
+// const currentUser = new User(userData.name, userData.id, userData.pantry);
+
+// Event listeners
+window.addEventListener('load', displayHomePage);
 
 // FUNCTIONS
 
@@ -20,32 +34,86 @@
     // or user search methods depending on form selection
   }
 
-  function updateRecipeList(list) {
-    // accepts an array of recipes
-    // builds markup recipe card for each item in the list parameter
-    // injects markup into index
+  function updateRecipeList(recipes) {
+    recipes.forEach(recipe => {
+      const tagList = cleanUpTagArr(recipe.tags);
+      const cardText = `
+      <div class="recipe-card-small">
+        <img src=${recipe.image}>
+        <h3>${recipe.name}</h3>
+          <div class="small-card-bottom">
+            <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
+            <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
+            <p class="tag-list-small">${tagList}</p>
+          </div>
+      </div>`
+      recipeList.innerHTML += cardText;
+    })
+  }
+
+
+    // const recipeCards = list.recipeList.map(recipe => {
+    //   const tagList = cleanUpTagArr(recipe.tags);
+    //   const cardText = `
+    //   <div class="recipe-card-small">
+    //     <img src=${recipe.image}>
+    //     <h3>${recipe.name}</h3>
+    //       <div class="small-card-bottom">
+    //         <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
+    //         <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
+    //         <p class="tag-list-small">${tagList}</p>
+    //       </div>
+    //   </div>
+    //   `
+    //   console.log(cardText);
+    //   return cardText;
+    // })
+    // // console.log(recipeCards);
+    // recipeCards.forEach(card => {
+    //   console.log(card);
+    //   recipeList.innerHTML += card;
+    // })
+
+  function cleanUpTagArr(tagArray) {
+    if (tagArray.length > 1) {
+      let tagList = tagArray.shift();
+      const returnString = tagArray.reduce((string, tag) => {
+        string += `, ${tag}`;
+        return string;
+      }, tagList);
+      return returnString;
+     }
+     else return tagArray[0];
+  }
+
+  function convertIdToName(id) {
+    // return ingredient name based on id
   }
 
   function displayHomePage() {
-    // hides user or search tabs
-    // updateRecipeList(allRecipes);
+    // hide user or search tabs
+
+    updateRecipeList(allRecipes.recipeList);
   }
 
   function pageLoad() {
-    // initalize const currentUser with getRandomUser();
-    // initlize const allRecipes = new Reciperepo(all of the recipe data)
-    // displayHomePage();
+    displayHomePage();
   }
 
-  function getRandomUser() {
-    // create an instance of user from a random data
+  function getRandomIndex(array) {
+    return Math.floor(Math.random() * array.length);
   }
 
 
 // DOM ELEMENTS
 
+const recipeList = document.querySelector('#recipeList');
+
 // Logo home button
 // User icon user page
 // search bar (we could replace this with a search page that allows for advanced searching)
+// user tab
+// search tab
+// recipeList
 // Each recipe will need to be clickable, probably requires event bubbling
 // Each tag should be clickable to allow for tag search
