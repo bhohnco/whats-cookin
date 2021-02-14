@@ -6,18 +6,34 @@ const Recipe = require ('../src/recipe.js')
 
 describe('User', () => {
   let userData = {}
-  let recipe; 
+  let recipe1;
   let recipe2;
     
   beforeEach( () => {
     userData = {
-      "name": "Matt",
-      "id": 363,
-      "pantry": ["rice", "sugar", "salt"],
+      "name": "Saige O'Kon",
+      "id": 1,
+      "pantry": [
+        {
+          "ingredient": 11477,
+          "amount": 4
+        },
+        {
+          "ingredient": 11297,
+          "amount": 4
+        },
+        {
+          "ingredient": 1082047,
+          "amount": 10
+        },
+        {
+          "ingredient": 20081,
+          "amount": 5
+        }],
       "favoriteRecipe": [],
       "recipesToCook": []
     };
-    recipe = new Recipe(595736, "https://spoonacular.com/recipeImages/595736-556x370.jpg", [
+    recipe1 = new Recipe(595736, "https://spoonacular.com/recipeImages/595736-556x370.jpg", [
       {
         "id": 20081,
         "quantity": {
@@ -80,17 +96,33 @@ describe('User', () => {
 
   it('should contain a name', () => {
     const user = new User(userData)
-    expect(user.name).to.equal('Matt');
+    expect(user.name).to.equal("Saige O'Kon");
   });
 
   it('should contain an id', () => {
     const user = new User(userData)
-    expect(user.id).to.equal(363);
+    expect(user.id).to.equal(1);
   });
 
   it('should contain a pantry', () => {
     const user = new User(userData)
-    expect(user.pantry).to.deep.equal(["rice", "sugar", "salt"]);
+    expect(user.pantry).to.deep.equal([
+      {
+        "ingredient": 11477,
+        "amount": 4
+      },
+      {
+        "ingredient": 11297,
+        "amount": 4
+      },
+      {
+        "ingredient": 1082047,
+        "amount": 10
+      },
+      {
+        "ingredient": 20081,
+        "amount": 5
+      }])
   });
 
   it('should contain no recipes to start', () => {
@@ -105,54 +137,52 @@ describe('User', () => {
 
   it('should be able to add a recipe to favorites', () => {
     const user = new User(userData)
-    user.addToFavorites('Maple Dijon Apple Cider Grilled Pork Chops')
-    user.addToFavorites('Loaded Chocolate Chip Pudding Cookie Cups')
-    expect(user.favoriteRecipes).to.deep.equal(['Maple Dijon Apple Cider Grilled Pork Chops', 'Loaded Chocolate Chip Pudding Cookie Cups']);
+    user.addToFavorites(recipe1)
+    user.addToFavorites(recipe2)
+    expect(user.favoriteRecipes).to.deep.equal([recipe1, recipe2]);
   });
 
   it('should be able to remove recipe from favorites', () => {
     const user = new User(userData)
-    user.addToFavorites('Maple Dijon Apple Cider Grilled Pork Chops')
-    user.addToFavorites('Loaded Chocolate Chip Pudding Cookie Cups')
-    user.addToFavorites('Oatmeal bake')
-    user.removeFavoriteRecipe('Loaded Chocolate Chip Pudding Cookie Cups')
-    expect(user.favoriteRecipes).to.deep.equal(['Maple Dijon Apple Cider Grilled Pork Chops', 'Oatmeal bake']);
+    user.addToFavorites(recipe1)
+    user.addToFavorites(recipe2)
+    user.removeFavoriteRecipe(recipe1)
+    expect(user.favoriteRecipes).to.deep.equal([recipe2]);
   });
 
   it('should be able to add a recipe to cook', () => {
     const user = new User(userData)
-    user.addToRecipesToCook('Maple Dijon Apple Cider Grilled Pork Chops')
-    user.addToRecipesToCook('Loaded Chocolate Chip Pudding Cookie Cups')
-    expect(user.recipesToCook).to.deep.equal(['Maple Dijon Apple Cider Grilled Pork Chops', 'Loaded Chocolate Chip Pudding Cookie Cups']);
+    user.addToRecipesToCook(recipe1)
+    user.addToRecipesToCook(recipe2)
+    expect(user.recipesToCook).to.deep.equal([recipe1, recipe2]);
   });
 
   it('should be able to remove recipe from recipes to cook', () => {
     const user = new User(userData)
-    user.addToRecipesToCook('Maple Dijon Apple Cider Grilled Pork Chops')
-    user.addToRecipesToCook('Loaded Chocolate Chip Pudding Cookie Cups')
-    user.addToRecipesToCook('Oatmeal bake')
-    user.removeRecipeToCook('Maple Dijon Apple Cider Grilled Pork Chops')
-    expect(user.recipesToCook).to.deep.equal(['Loaded Chocolate Chip Pudding Cookie Cups', 'Oatmeal bake']);
+    user.addToRecipesToCook(recipe1)
+    user.addToRecipesToCook(recipe2)
+    user.removeRecipeToCook(recipe2)
+    expect(user.recipesToCook).to.deep.equal([recipe1]);
   });
 
   it('should be able to filter recipes by tags', () => {
     const user = new User(userData)
-    user.addToFavorites(recipe);
+    user.addToFavorites(recipe1);
     user.addToFavorites(recipe2);
-    expect(user.filterFavoriteRecipesByTag('snack', user.favoriteRecipes)).to.deep.equal([recipe])
+    expect(user.filterFavoriteRecipesByTag('snack', user.favoriteRecipes)).to.deep.equal([recipe1])
   });
 
   it('should be able to filter recipes by name', () => {
     const user = new User(userData);
-    user.addToFavorites(recipe);
+    user.addToFavorites(recipe1);
     user.addToFavorites(recipe2);
     expect(user.filterFavoriteRecipesByName('Maple Dijon Apple Cider Grilled Pork Chops', user.favoriteRecipes)).to.deep.equal([recipe2])
   })
 
   it('should be able to filter recipes by ingredient', () => {
     const user = new User(userData);
-    user.addToFavorites(recipe);
+    user.addToFavorites(recipe1);
     user.addToFavorites(recipe2);
-    expect(user.filterFavoriteRecipesByIngredient("wheat flour", user.favoriteRecipes)).to.deep.equal([recipe])
+    expect(user.filterFavoriteRecipesByIngredient("wheat flour", user.favoriteRecipes)).to.deep.equal([recipe1])
   })
 });
