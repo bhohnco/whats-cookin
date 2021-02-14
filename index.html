@@ -16,16 +16,16 @@
         <div id="userButton" class="header-button">
           <img class="user-icon" src="./assets/Sample_User_Icon.png">
         </div>
-        <div id="searchButton" class="header-button">
-          <img class="search-icon search-icon-active" src="./assets/search-icon.png">
+        <div class="header-button">
+          <img id="searchIcon" class="search-icon" src="./assets/search-icon.png">
         </div>
       </div>
     </header>
 
-    <section class="search-tab hidden">
+    <section id="searchTab" class="search-tab hidden">
       <div class="search-input">
         <label for="recipe-search" class="search-directions">Enter ingredients, tags or a name to search for a recipe</label>
-        <input type="text" id="searchBar" class="search-field" name="recipe-search" placeholder="ex. grilled salad dinner">
+        <input type="text" id="searchBar" class="search-field" name="recipe-search" placeholder="ex. grilled, salad, side dish">
         <p class="search-directions">Select a recipe list to search</p>
         <div class="search-radio-buttons">
           <input type="radio" id="all" name="searchList" value="all" checked>
@@ -63,6 +63,7 @@
     <script type="text/javascript" src="../data/ingredients.js"></script>
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/recipes.js"></script>
+    <script type="text/javascript" src="../src/Ingredient.js"></script>
     <script type="text/javascript" src="../src/recipe.js"></script>
     <script type="text/javascript" src="../src/Reciperepo.js"></script>
     <script type="text/javascript" src="../src/pantry.js"></script>

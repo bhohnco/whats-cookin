@@ -14,9 +14,16 @@ const ingredientList = ingredientsData.map(ingredient => {
 // const userData = usersData[getRandomIndex(usersData)];
 // const currentUser = new User(userData.name, userData.id, userData.pantry);
 
+// DOM ELEMENTS
+
+const recipeList = document.querySelector('#recipeList');
+const searchIcon = document.querySelector('#searchIcon');
+const searchTab = document.querySelector('#searchTab')
+
 
 // Event listeners
 window.addEventListener('load', displayHomePage);
+searchIcon.addEventListener('click', toggleSearchTab)
 
 // FUNCTIONS
 
@@ -25,12 +32,9 @@ window.addEventListener('load', displayHomePage);
     // has buttons to that call updateRecipeList(user.toCook) or updateRecipeList(favorites)
   }
 
-  function displaySearchTab() {
-    //reveals search page under the header and above the current recipe list
-    //list of all tags with check boxes
-    //form box for typing in search terms
-    // Radio buttons for all recipes, favorites list, tocook list
-    // search button
+  function toggleSearchTab() {
+    toggleClass(searchTab, 'hidden');
+    toggleClass(searchIcon, 'user-icon-active')
   }
 
   function searchRecipes() {
@@ -85,14 +89,20 @@ window.addEventListener('load', displayHomePage);
     displayHomePage();
   }
 
+  function toggleHide(element) {
+    return element.classList.toggle('hidden');
+  }
+
+  function toggleClass(element, className) {
+    return element.classList.toggle(className);
+  }
+
   function getRandomIndex(array) {
     return Math.floor(Math.random() * array.length);
   }
 
 
-// DOM ELEMENTS
 
-const recipeList = document.querySelector('#recipeList');
 
 // Logo home button
 // User icon user page
