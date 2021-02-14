@@ -13,20 +13,36 @@
         <img class="header-img" src="./assets/index_LOGO.png" alt="The What's Cookin' logo">
       </div>
       <div class="header-controls">
-        <div id="userButton" class="user-button">
+        <div id="userButton" class="header-button">
           <img class="user-icon" src="./assets/Sample_User_Icon.png">
         </div>
-        <form class="search-bar">find a recipe</form>
+        <div id="searchButton" class="header-button">
+          <img class="search-icon search-icon-active" src="./assets/search-icon.png">
+        </div>
       </div>
     </header>
-    <!-- user drop down -->
-    <!-- search drop down -->
-    <!-- single recipe page -->
-    <section class='search-tab'>
 
+    <section class="search-tab hidden">
+      <div class="search-input">
+        <label for="recipe-search" class="search-directions">Enter ingredients, tags or a name to search for a recipe</label>
+        <input type="text" id="searchBar" class="search-field" name="recipe-search" placeholder="ex. grilled salad dinner">
+        <p class="search-directions">Select a recipe list to search</p>
+        <div class="search-radio-buttons">
+          <input type="radio" id="all" name="searchList" value="all" checked>
+          <label for="all">All recipes</label>
+          <input type="radio" id="fav" name="searchList" value="fav">
+          <label for="fav">My favorites</label>
+          <input type="radio" id="toCook" name="searchList" value="toCook">
+          <label for="toCook">My recipes to cook</label>
+        </div>
+      </div>
+      <button id="searchButton" class="search-button">search</button>
     </section>
 
     <section class='user-tab hidden'>
+    </section>
+
+    <section id="singleRecipe" class="single-recipe">
 
     </section>
 

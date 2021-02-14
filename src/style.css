@@ -14,7 +14,7 @@ header {
   width: 95%;
   display: flex;
   justify-content: space-between;
-  margin: 2em auto 3em;
+  margin: 20px auto;
   border-bottom: solid 2px;
 }
 
@@ -30,32 +30,118 @@ header {
   width: 29%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
-.user-button {
+.header-button {
   width: 30%;
   display: flex;
-  margin-right: 20px;
 }
 
 .user-icon {
-  background-color: #FEC001;
   border-radius: 50%;
+  border: solid 3px;
   width: 100%;
 }
 
-.search-bar {
-  width: 70%;
+.user-icon-active {
+  background-color: #bfb;
+  border-color: #4c4;
+}
+
+.search-icon {
+  border-radius: 50%;
+  border: solid 3px;
+  width: 100%;
+}
+
+.search-icon-active {
+  background-color: #bfb;
+  border-color: #4c4;
+}
+
+/* Search tabs */
+.search-tab {
+  background-color: #C6E0B5;
+  width: 95%;
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  border: solid 3px;
+  margin: 0 auto;
+  padding: 0 10px 7px 10px;
+}
+
+.search-button {
+  background-color: #FEC001;
+  font-size: 25px;
+  width: 300px;
+  border: solid 2px;
+  border-radius: 4px;
+  padding: 5px;
+  align-self: flex-end;
+}
+
+.search-input {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.search-directions {
+  width: 600px;
+  font-weight: 500;
+  font-size: 23px;
+  margin: 15px 0 10px 0;
+}
+
+.search-field {
+  background-color: white;
+  width: 500px;
+  height: 40px;
   font-style: italic;
   font-size: 1.35em;
   text-align: center;
-  border: solid 1px;
+  margin-bottom: 1px;
+  border: solid 2px;
   padding: 3px;
 }
 
-.search-tab {
-  
+.search-radio-buttons {
+  display: inline-block;
+  font-size: 25px;
+  margin: 10px 0 0 -20px;
+}
+
+.search-radio-buttons input[type="radio"] {
+  opacity: 0;
+}
+
+.search-radio-buttons label {
+  background-color: #ddd;
+  border: 2px solid #444;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.search-radio-buttons label:hover {
+  background-color: #dfd;
+}
+
+.search-radio-buttons input[type="radio"]:checked + label {
+    background-color: #bfb;
+    border-color: #4c4;
+}
+
+
+/* User tab */
+.user-tab {
+  background-color: #E6D2A2;
+  width: 95%;
+  height: 200px;
+  border: solid 2px;
+  margin: 0 auto;
 }
 
 /* Recipe list */
@@ -80,6 +166,7 @@ header {
 h3 {
   background-color: #FEC001;
   font-size: 2.25em;
+  font-weight: 500;
   border-bottom: solid black 3px;
   padding: 10px 0px 10px 10px;
 }
