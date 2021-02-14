@@ -11,6 +11,7 @@ class Recipe {
     this.tags = tags;
   }
 
+
   generateIngredientNames() {
     let ingredientNameList = [];
     this.ingredients.forEach(ingredient => {
@@ -23,6 +24,7 @@ class Recipe {
     })
     return ingredientNameList;
   }
+
 
   calculateRecipeCost() {
     let totalCost = 0;
