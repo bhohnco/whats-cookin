@@ -1,4 +1,3 @@
-let ingredientsData = require('../data/ingredients.js')
 class Pantry {
   constructor(stockedIngredients) {
     this.stockedIngredients = stockedIngredients;
@@ -50,9 +49,9 @@ class Pantry {
     })
     return missingIngredients;
   }
-    
+
   removeStockFromPantry() {
-    
+
   }
 }
 

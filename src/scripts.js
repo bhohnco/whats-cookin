@@ -11,19 +11,22 @@ const ingredientList = ingredientsData.map(ingredient => {
   return newIngredient;
 });
 
-// const userData = usersData[getRandomIndex(usersData)];
-// const currentUser = new User(userData.name, userData.id, userData.pantry);
+const currentUser = new User(usersData[getRandomIndex(usersData)]);
 
 // DOM ELEMENTS
 
 const recipeList = document.querySelector('#recipeList');
 const searchIcon = document.querySelector('#searchIcon');
-const searchTab = document.querySelector('#searchTab')
+const searchTab = document.querySelector('#searchTab');
+const searchButton = document.querySelector('#searchButton');
+const searchBar = document.querySelector('#searchBar');
+const searchList = document.querySelector('#searchList');
 
 
 // Event listeners
 window.addEventListener('load', displayHomePage);
-searchIcon.addEventListener('click', toggleSearchTab)
+searchIcon.addEventListener('click', toggleSearchTab);
+searchButton.addEventListener('click', searchRecipes);
 
 // FUNCTIONS
 
@@ -38,12 +41,30 @@ searchIcon.addEventListener('click', toggleSearchTab)
   }
 
   function searchRecipes() {
-    // reads data from search tab
-    // runs allRecipes.returnTagList and/or allRecipes.returnNameList
-    // or user search methods depending on form selection
+    const searchInput = searchBar.value; //take input from form
+    const searchTerms = searchInput.split(','); //seprate by comma
+
+    searchTerms.forEach(term => term.trim()); //remove any whitespace
+
+    //this will need to get updated to accept list from the radio buttons
+    const tagResults = allRecipes.returnTagList(searchTerms) || [];
+    const nameResults = allRecipes.returnNameList(searchTerms) || [];
+    const mergeResults = tagResults.concat(nameResults);
+    const searchResults = mergeResults.filter((result, index) => {
+      return mergeResults.indexOf(result) === index;
+    });
+
+    updateHeadsUp(`Results for '${searchTerms}`);
+    updateRecipeList(searchResults);
+  }
+
+  function updateHeadsUp(message) {
+    // take string input
+    // inject it into the heads up section of the dom
   }
 
   function updateRecipeList(recipes) {
+    recipeList.innerHTML = '';
     recipes.forEach(recipe => {
       const tagList = cleanUpTagArr(recipe.tags);
       const cardText = `

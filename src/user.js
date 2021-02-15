@@ -1,5 +1,3 @@
-let ingredientsData = require('../data/ingredients.js')
-
 class User {
   constructor(userData) {
     this.name = userData.name;
@@ -69,4 +67,3 @@ class User {
 if (typeof module !== 'undefined') {
   module.exports = User;
 }
-
