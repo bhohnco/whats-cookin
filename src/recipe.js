@@ -1,4 +1,3 @@
-
 class Recipe {
   constructor(id, image, ingredients, instructions, name, tags) {
     this.id = id;
@@ -8,7 +7,6 @@ class Recipe {
     this.name = name;
     this.tags = tags;
   }
-
 
   generateIngredientNames() {
     let ingredientNameList = [];
@@ -22,7 +20,6 @@ class Recipe {
     })
     return ingredientNameList;
   }
-
 
   calculateRecipeCost() {
     let totalCost = 0;
@@ -44,7 +41,6 @@ class Recipe {
     return detailList;
   }
 }
-
 
 if (typeof module !== 'undefined') {
   module.exports = Recipe;

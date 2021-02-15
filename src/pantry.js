@@ -3,6 +3,10 @@ class Pantry {
     this.stockedIngredients = stockedIngredients;
   }
 
+  getPantryStock() {
+    return this.stockedIngredients;
+  }
+
   getRequiredIngredients(recipe) {
     return recipe.ingredients.map(ingredient => {
       const ingredientList = {};
@@ -21,48 +25,41 @@ class Pantry {
 
   checkPantryForRequiredIngedients(recipe) {
     let requiredIngredient = recipe.ingredients
-    let ingredientsAvailable;
+    let ingredientsAvailable = {
+      canCook : true,
+      missingIngredients : []
+    };
     requiredIngredient.forEach(ingredient => {
-       this.stockedIngredients.forEach(item => {
-         console.log(requiredIngredient);
-         console.log(this.stockedIngredients)
-        if (ingredient.id === item.id && item.amount >= ingredient.quantity.amount) {
-          ingredientsAvailable = true;
+      let matchingPantryItem = this.stockedIngredients.reduce((stock, pantryItem) => {
+        const idMatch = this.stockedIngredients.find(pantryItem => pantryItem.ingredient === ingredient.id)
+        if (idMatch === undefined) {
+          ingredientsAvailable.canCook = false;
+          return {"ingredient": ingredient.id, "amount": ingredient.quantity.amount}
+        } else if (idMatch.amount < ingredient.quantity.amount) {
+          ingredientsAvailable.canCook = false;
+          return {"ingredient": ingredient.id, "amount": (ingredient.quantity.amount - idMatch.amount)}
         } else {
-          ingredientsAvailable = false;
+          return idMatch;
         }
-        console.log(ingredientsAvailable)
-      })
-      // return ingredientsAvailable;
-    })
+      }, []);
+      ingredientsAvailable.missingIngredients.push(matchingPantryItem)
+    });
+    return ingredientsAvailable;
   }
-
-  provideMissingIngredients(recipe) {
-    let requiredIngredient = this.getRequiredIngredients(recipe);
-    let missingIngredients = [];
-    requiredIngredient.forEach(ingredient => {
-      this.stockedIngredients.forEach(stockedItem => {
-        if ((ingredient.id === stockedItem.ingredient) && (ingredient.amount > stockedItem.amount)) {
-          missingIngredients.push(`Ingredient: ${requiredIngredient.name} Amount: ${ingredient.amount - stockedItem.amount} `)
+    
+  removeStockFromPantry(recipe) {
+    this.stockedIngredients.forEach(item => {
+      recipe.ingredients.forEach((ingredient => {
+        if (item.ingredient === ingredient.id) {
+          item.amount -= ingredient.quantity.amount
         }
-      })
+      }))
+    });
+    this.stockedIngredients = this.stockedIngredients.filter((item) => {
+      return item.amount > 0;
     })
-    return missingIngredients;
-  }
-
-  removeStockFromPantry() {
-
   }
 }
-
-
-
-
-//ingredients and *amounts* of ingredient**
-//add return for ingredients needed**
-//remove ingredients when a meal is cooked take in
-// parameter of recipe and remove that list from pantry
-
 
 if (typeof module !== 'undefined') {
   module.exports = Pantry;
