@@ -225,97 +225,33 @@ const recipeData = [
     "image": "https://spoonacular.com/recipeImages/412309-556x370.jpeg",
     "ingredients": [
       {
-        "id": 1002030,
-        "quantity": {
-          "amount": 4,
-          "unit": "teaspoons"
-        }
-      },
-      {
-        "id": 19334,
-        "quantity": {
-          "amount": 8,
-          "unit": "tablespoons"
-        }
-      },
-      {
-        "id": 1001,
+        "id": 11477,
         "quantity": {
           "amount": 2,
-          "unit": "cups"
+          "unit": ""
         }
       },
       {
-        "id": 4582,
+        "id": 11297,
         "quantity": {
-          "amount": 4,
-          "unit": "servings"
-        }
-      },
-      {
-        "id": 2031,
-        "quantity": {
-          "amount": 4,
-          "unit": "teaspoons"
-        }
-      },
-      {
-        "id": 5100,
-        "quantity": {
-          "amount": 1,
-          "unit": "pound"
-        }
-      },
-      {
-        "id": 2009,
-        "quantity": {
-          "amount": 4,
-          "unit": "teaspoons"
-        }
-      },
-      {
-        "id": 1022020,
-        "quantity": {
-          "amount": 4,
-          "unit": "teaspoons"
-        }
-      },
-      {
-        "id": 6168,
-        "quantity": {
-          "amount": 8,
-          "unit": "cups"
-        }
-      },
-      {
-        "id": 9176,
-        "quantity": {
-          "amount": 0.5,
+          "amount": 0.25,
           "unit": "cup"
         }
-      },
+        },
       {
-        "id": 2026,
+        "id": 1082047,
         "quantity": {
-          "amount": 4,
-          "unit": "teaspoons"
+          "amount": 0.25,
+          "unit": "teaspoon"
         }
-      },
-      {
-        "id": 1042047,
+      }, {
+        "id": 20081,
         "quantity": {
-          "amount": 1.5,
-          "unit": "tablespoons"
-        }
-      },
-      {
-        "id": 1042047,
-        "quantity": {
-          "amount": 4,
-          "unit": "teaspoons"
+          "amount": 1,
+          "unit": "cup"
         }
       }
-    ],
+      ],
     "instructions": [
       {
         "instruction": "Mix the hot sauce, butter, mango habanero sauce, brown sugar, chili powder, garlic powder, onion powder, black pepper, cayenne pepper and seasoning salt in a bowl. Stir vigorously until completely combined.",
