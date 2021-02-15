@@ -15,18 +15,20 @@ const currentUser = new User(usersData[getRandomIndex(usersData)]);
 
 // DOM ELEMENTS
 
+const homeButton = document.querySelector('#headerLogo');
 const recipeList = document.querySelector('#recipeList');
 const searchIcon = document.querySelector('#searchIcon');
 const searchTab = document.querySelector('#searchTab');
 const searchButton = document.querySelector('#searchButton');
 const searchBar = document.querySelector('#searchBar');
-const searchList = document.querySelector('#searchList');
+const headsUp = document.querySelector('#headsUp');
 
 
 // Event listeners
 window.addEventListener('load', displayHomePage);
 searchIcon.addEventListener('click', toggleSearchTab);
 searchButton.addEventListener('click', searchRecipes);
+homeButton.addEventListener('click', displayHomePage);
 
 // FUNCTIONS
 
@@ -42,34 +44,50 @@ searchButton.addEventListener('click', searchRecipes);
 
   function searchRecipes() {
     const searchInput = searchBar.value; //take input from form
-    const searchTerms = searchInput.split(','); //seprate by comma
+    const rawTerms = searchInput.split(','); //seprate by comma
+    const searchTerms = rawTerms.map(term => term.trim()); //remove any whitespace
+    const searchList = document.querySelector(`input[type="radio"]:checked`);
 
-    searchTerms.forEach(term => term.trim()); //remove any whitespace
+    if (searchList.value === 'all') {
+      var tagResults = allRecipes.returnTagList(searchTerms) || [];
+      var nameResults = allRecipes.returnNameList(searchTerms) || [];
+    } else if (searchList.value === 'fav') {
+      //assign tag and name to the values of the user methods
+    } else {
+      // assign tag and name to the values of the use methods
+    }
 
-    //this will need to get updated to accept list from the radio buttons
-    const tagResults = allRecipes.returnTagList(searchTerms) || [];
-    const nameResults = allRecipes.returnNameList(searchTerms) || [];
     const mergeResults = tagResults.concat(nameResults);
     const searchResults = mergeResults.filter((result, index) => {
       return mergeResults.indexOf(result) === index;
     });
-    console.log(searchTerms);
-    console.log(searchResults);
-    toggleClass(searchTab, 'hidden');
-    updateHeadsUp(`Results for '${searchTerms}`);
-    updateRecipeList(searchResults);
+
+    displaySearchResults(searchTerms, searchResults);
+  }
+
+  function displaySearchResults(terms, recipes) {
+    const termsToDisplay = terms.map(term => {
+      return " '"+`${term}`+"'";
+    });
+    toggleSearchTab();
+    unhide(headsUp);
+    if (recipes.length > 0) {
+      updateHeadsUp(`Search results for ${termsToDisplay}`);
+    } else {
+      updateHeadsUp(`Sorry, there were results for ${termsToDisplay}`)
+    }
+    updateRecipeList(recipes);
+    searchBar.value = '';
   }
 
   function updateHeadsUp(message) {
-    // take string input
-    // inject it into the heads up section of the dom
+    headsUp.innerHTML = `<h2>${message}</h2>`
   }
 
   function updateRecipeList(recipes) {
     recipeList.innerHTML = '';
     recipes.forEach(recipe => {
       const tagList = cleanUpTagArr(recipe.tags);
-      // const tagList = recipe.tags
       const cardText = `
       <div class="recipe-card-small">
         <img src=${recipe.image}>
@@ -100,8 +118,8 @@ searchButton.addEventListener('click', searchRecipes);
   }
 
   function displayHomePage() {
-    // hide user or search tabs
-
+    hide(searchTab);
+    hide(headsUp);
     updateRecipeList(allRecipes.recipeList);
   }
 
@@ -109,8 +127,12 @@ searchButton.addEventListener('click', searchRecipes);
     displayHomePage();
   }
 
-  function toggleHide(element) {
-    return element.classList.toggle('hidden');
+  function hide(element) {
+    return element.classList.add('hidden');
+  }
+
+  function unhide(element) {
+    return element.classList.remove('hidden');
   }
 
   function toggleClass(element, className) {

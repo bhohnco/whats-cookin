@@ -60,6 +60,12 @@ header {
   border: solid 5px #4c4;
 }
 
+h2 {
+  width: 95%;
+  font-size: 2em;
+  margin: 10px auto 5px;
+}
+
 /* Search tabs */
 .search-tab {
   background-color: #C6E0B5;
