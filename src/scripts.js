@@ -11,19 +11,24 @@ const ingredientList = ingredientsData.map(ingredient => {
   return newIngredient;
 });
 
-// const userData = usersData[getRandomIndex(usersData)];
-// const currentUser = new User(userData.name, userData.id, userData.pantry);
+const currentUser = new User(usersData[getRandomIndex(usersData)]);
 
 // DOM ELEMENTS
 
+const homeButton = document.querySelector('#headerLogo');
 const recipeList = document.querySelector('#recipeList');
 const searchIcon = document.querySelector('#searchIcon');
-const searchTab = document.querySelector('#searchTab')
+const searchTab = document.querySelector('#searchTab');
+const searchButton = document.querySelector('#searchButton');
+const searchBar = document.querySelector('#searchBar');
+const headsUp = document.querySelector('#headsUp');
 
 
 // Event listeners
 window.addEventListener('load', displayHomePage);
-searchIcon.addEventListener('click', toggleSearchTab)
+searchIcon.addEventListener('click', toggleSearchTab);
+searchButton.addEventListener('click', searchRecipes);
+homeButton.addEventListener('click', displayHomePage);
 
 // FUNCTIONS
 
@@ -38,12 +43,49 @@ searchIcon.addEventListener('click', toggleSearchTab)
   }
 
   function searchRecipes() {
-    // reads data from search tab
-    // runs allRecipes.returnTagList and/or allRecipes.returnNameList
-    // or user search methods depending on form selection
+    const searchInput = searchBar.value; //take input from form
+    const rawTerms = searchInput.split(','); //seprate by comma
+    const searchTerms = rawTerms.map(term => term.trim()); //remove any whitespace
+    const searchList = document.querySelector(`input[type="radio"]:checked`);
+
+    if (searchList.value === 'all') {
+      var tagResults = allRecipes.returnTagList(searchTerms) || [];
+      var nameResults = allRecipes.returnNameList(searchTerms) || [];
+    } else if (searchList.value === 'fav') {
+      //assign tag and name to the values of the user methods
+    } else {
+      // assign tag and name to the values of the use methods
+    }
+
+    const mergeResults = tagResults.concat(nameResults);
+    const searchResults = mergeResults.filter((result, index) => {
+      return mergeResults.indexOf(result) === index;
+    });
+
+    displaySearchResults(searchTerms, searchResults);
+  }
+
+  function displaySearchResults(terms, recipes) {
+    const termsToDisplay = terms.map(term => {
+      return " '"+`${term}`+"'";
+    });
+    toggleSearchTab();
+    unhide(headsUp);
+    if (recipes.length > 0) {
+      updateHeadsUp(`Search results for ${termsToDisplay}`);
+    } else {
+      updateHeadsUp(`Sorry, there were results for ${termsToDisplay}`)
+    }
+    updateRecipeList(recipes);
+    searchBar.value = '';
+  }
+
+  function updateHeadsUp(message) {
+    headsUp.innerHTML = `<h2>${message}</h2>`
   }
 
   function updateRecipeList(recipes) {
+    recipeList.innerHTML = '';
     recipes.forEach(recipe => {
       const tagList = cleanUpTagArr(recipe.tags);
       const cardText = `
@@ -66,11 +108,7 @@ searchIcon.addEventListener('click', toggleSearchTab)
     if (tagArray.length === 0) {
       return [' '];
     } else if (tagArray.length > 1) {
-      let tagList = tagArray.shift();
-      const returnString = tagArray.reduce((string, tag) => {
-        string += `, ${tag}`;
-        return string;
-      }, tagList);
+        const returnString = tagArray.map(tag => ` ${tag}`);
       return returnString;
      } else return tagArray[0];
   }
@@ -80,8 +118,8 @@ searchIcon.addEventListener('click', toggleSearchTab)
   }
 
   function displayHomePage() {
-    // hide user or search tabs
-
+    hide(searchTab);
+    hide(headsUp);
     updateRecipeList(allRecipes.recipeList);
   }
 
@@ -89,8 +127,12 @@ searchIcon.addEventListener('click', toggleSearchTab)
     displayHomePage();
   }
 
-  function toggleHide(element) {
-    return element.classList.toggle('hidden');
+  function hide(element) {
+    return element.classList.add('hidden');
+  }
+
+  function unhide(element) {
+    return element.classList.remove('hidden');
   }
 
   function toggleClass(element, className) {
