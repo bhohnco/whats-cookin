@@ -53,7 +53,9 @@ searchButton.addEventListener('click', searchRecipes);
     const searchResults = mergeResults.filter((result, index) => {
       return mergeResults.indexOf(result) === index;
     });
-
+    console.log(searchTerms);
+    console.log(searchResults);
+    toggleClass(searchTab, 'hidden');
     updateHeadsUp(`Results for '${searchTerms}`);
     updateRecipeList(searchResults);
   }
@@ -67,6 +69,7 @@ searchButton.addEventListener('click', searchRecipes);
     recipeList.innerHTML = '';
     recipes.forEach(recipe => {
       const tagList = cleanUpTagArr(recipe.tags);
+      // const tagList = recipe.tags
       const cardText = `
       <div class="recipe-card-small">
         <img src=${recipe.image}>
@@ -87,11 +90,7 @@ searchButton.addEventListener('click', searchRecipes);
     if (tagArray.length === 0) {
       return [' '];
     } else if (tagArray.length > 1) {
-      let tagList = tagArray.shift();
-      const returnString = tagArray.reduce((string, tag) => {
-        string += `, ${tag}`;
-        return string;
-      }, tagList);
+        const returnString = tagArray.map(tag => ` ${tag}`);
       return returnString;
      } else return tagArray[0];
   }
