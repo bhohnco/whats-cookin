@@ -1,4 +1,3 @@
-
 let ingredientsData = require('../data/ingredients.js')
 
 class Recipe {
@@ -10,7 +9,6 @@ class Recipe {
     this.name = name;
     this.tags = tags;
   }
-
 
   generateIngredientNames() {
     let ingredientNameList = [];
@@ -24,7 +22,6 @@ class Recipe {
     })
     return ingredientNameList;
   }
-
 
   calculateRecipeCost() {
     let totalCost = 0;
@@ -46,7 +43,6 @@ class Recipe {
     return detailList;
   }
 }
-
 
 if (typeof module !== 'undefined') {
   module.exports = Recipe;
