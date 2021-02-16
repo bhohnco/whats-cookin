@@ -40,7 +40,7 @@ class Recipe {
     let detailList = [];
     this.instructions.forEach(instruction => {
       const step = instruction.number
-      detailList.push(`Step:${instruction.number}-${instruction.instruction} `)
+      detailList.push(`${instruction.instruction} `)
     });
     return detailList;
   }

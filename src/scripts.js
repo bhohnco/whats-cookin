@@ -34,11 +34,16 @@ recipeList.addEventListener('click', function(event) {
   let id = 0;
   if (event.target.parentNode.id) {
     id = event.target.parentNode.id;
+    const recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
+    displaySingleRecipe(recipe);
   } else if (event.target.parentNode.parentNode.id) {
     id = event.target.parentNode.parentNode.id;
+    const recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
+    displaySingleRecipe(recipe);
+  } else {
+    id = event.target.parentNode.parentNode.parentNode.id;
+    const button = event.target.id;
   }
-  const recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
-  displaySingleRecipe(recipe);
 });
 
 // FUNCTIONS
@@ -106,7 +111,7 @@ recipeList.addEventListener('click', function(event) {
         <div class="small-card-bottom">
           <div class="button-box">
             <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
-            <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
+            <input class="to-cook-button-small" type="image" id="toCookButton" alt="favorite button" src="./assets/cookpot1.png">
           </div>
           <p class="tag-list-small">${tagList}</p>
         </div>
@@ -143,8 +148,8 @@ function displaySingleRecipe(recipe) {
     unhide(singleRecipe);
     const tagList = cleanUpTagArr(recipe.tags);
     const recipeCost = recipe.calculateRecipeCost()
-    const recipeIngredients = recipe.generateIngredientNames()
-    const recipeDirections = recipe.getInstructions()
+    const recipeIngredients = formatIngredientList(recipe.generateIngredientNames());
+    const recipeDirections = formatDirections(recipe.getInstructions());
     const cardText = `
       <div class="recipe-card-small">
         <h3>${recipe.name}</h3>
@@ -159,19 +164,35 @@ function displaySingleRecipe(recipe) {
            </div>
         <section class="ingredients-section">
           <h3>Ingredients</h3>
-          <ul>
-            <li>${recipeIngredients}</li>
+          <ul class="single-recipe-lists">
+            ${recipeIngredients}
           </ul>
         </section>
         <section class="directions-section">
           <h3>Directions</h3>
-          <ul>
-            <ol>${recipeDirections}</ol>
-          </ul>
+          <ol class="single-recipe-lists">
+            ${recipeDirections}
+          </ol>
         </section>
       </div>`
     singleRecipe.innerHTML += cardText;
-}
+};
+
+ function formatIngredientList(ingredients) {
+   let formattedList = '';
+   ingredients.forEach(ingredient => {
+     formattedList += `<li>${ingredient}</li>`;
+   });
+   return formattedList;
+ };
+
+ function formatDirections(directions) {
+   let formattedList = '';
+   directions.forEach(direction => {
+     formattedList += `<li>${direction}</li>`
+   });
+   return formattedList;
+ };
 
   function toggleHide(element) {
     return element.classList.toggle('hidden');

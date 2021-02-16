@@ -21,7 +21,12 @@ class Reciperepo {
         this.recipeList.forEach(recipe => {
           const lowerCaseName = recipe.name.toLowerCase();
           let recipeNames = lowerCaseName.split(' ');
-          const recipeTerms = recipeNames.concat(recipe.generateIngredientNames());
+          const unformattedIngNames = recipe.generateIngredientNames();
+          const ingredientNames = unformattedIngNames.map(ingredient => {
+            const slice = (ingredient.indexOf('-') + 2);
+            return ingredient.slice(slice);
+          });
+          const recipeTerms = recipeNames.concat(ingredientNames);
           if (recipeTerms.includes(term) && !returnList.includes(recipe)) {
             returnList.push(recipe);
           }

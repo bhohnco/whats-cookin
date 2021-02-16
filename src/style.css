@@ -97,7 +97,7 @@ h2 {
 }
 
 .search-directions {
-  width: 600px;
+  width: 100%;
   font-weight: 500;
   font-size: 14px;
   margin: 15px 0 10px 0;
@@ -230,6 +230,10 @@ h3 {
     color: #FEC001;
     font-size: 12px;
     padding: 5px;
+  }
+
+  .single-recipe-lists {
+    padding: 3px 0 5px 25px;
   }
 
 /* UTILITY */
