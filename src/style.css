@@ -40,7 +40,7 @@ header {
 
 .user-icon {
   border-radius: 50%;
-  border: solid 5px;
+  border: solid 2px;
   width: 100%;
 }
 
@@ -51,18 +51,19 @@ header {
 
 .search-icon {
   border-radius: 50%;
-  border: solid 5px;
+  border: solid 2px;
   width: 100%;
 }
 
 .search-icon-active {
   background-color: #bfb;
-  border: solid 5px #4c4;
+  border: solid 2px #4c4;
 }
 
+/* tag list font */
 h2 {
   width: 95%;
-  font-size: 2em;
+  font-size: 20px;
   margin: 10px auto 5px;
 }
 
@@ -72,7 +73,7 @@ h2 {
   width: 95%;
   height: 200px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   border: solid 3px;
   margin: 0 auto;
   padding: 0 10px 7px 10px;
@@ -80,12 +81,12 @@ h2 {
 
 .search-button {
   background-color: #FEC001;
-  font-size: 25px;
-  width: 300px;
+  font-size: 12px;
+  width: 100px;
   border: solid 2px;
   border-radius: 4px;
   padding: 5px;
-  align-self: flex-end;
+  margin: 20px 0 0 -5px;
 }
 
 .search-input {
@@ -98,16 +99,16 @@ h2 {
 .search-directions {
   width: 600px;
   font-weight: 500;
-  font-size: 23px;
+  font-size: 14px;
   margin: 15px 0 10px 0;
 }
 
 .search-field {
   background-color: white;
-  width: 500px;
+  width: 100%;
   height: 40px;
   font-style: italic;
-  font-size: 1.35em;
+  font-size: 14px;
   text-align: center;
   margin-bottom: 1px;
   border: solid 2px;
@@ -115,9 +116,10 @@ h2 {
 }
 
 .search-radio-buttons {
-  display: inline-block;
-  font-size: 25px;
+  width: 100%;
+  font-size: 11px;
   margin: 10px 0 0 -20px;
+  justify-content: space-between;
 }
 
 .search-radio-buttons input[type="radio"] {
@@ -165,13 +167,13 @@ h2 {
   display: flex;
   flex-direction: column;
   align-content: center;
-  margin: 20px auto;
+  margin: 10px auto;
   border: solid 4px;
 }
 
 h3 {
   background-color: #FEC001;
-  font-size: 2.25em;
+  font-size: 20px;
   font-weight: 500;
   border-bottom: solid black 3px;
   padding: 10px 0px 10px 10px;
@@ -180,7 +182,14 @@ h3 {
 .small-card-bottom {
   background-color: white;
   display: flex;
-  /* border-top: solid black 2px; */
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button-box {
+  background-color: white;
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -188,14 +197,14 @@ h3 {
 
 .fav-button-small {
   /* background-color: red; */
-  width: 70px;
-  margin: 10px;
+  width: 44px;
+  margin: 5px;
   border-radius: 50%;
 }
 
 .to-cook-button-small {
-  width: 70px;
-  margin: 10px;
+  width: 44px;
+  margin: 5px;
   border-radius: 50%;
 }
 
@@ -204,11 +213,18 @@ h3 {
 }
 
 .tag-list-small {
-  font-size: 1.75em;
-  align-self: flex-end;
-  padding: 4px;
+  font-size: 15px;
+  padding: 2px;
+  text-align: right;
   align-self: center;
 }
+
+/* Single recipe styles */
+  .cost-display {
+    color: #FEC001;
+    font-size: 12px;
+    padding
+  }
 
 /* UTILITY */
 .hidden {
