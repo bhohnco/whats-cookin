@@ -14,10 +14,10 @@
       </div>
       <div class="header-controls">
         <div id="userButton" class="header-button">
-          <img class="user-icon" src="./assets/Sample_User_Icon.png">
+          <img class="user-icon" src="./assets/Sample_User_Icon.png" alt="A human icon, indicating the user">
         </div>
         <div class="header-button">
-          <img id="searchIcon" class="search-icon" src="./assets/search-icon.png">
+          <img id="searchIcon" class="search-icon" src="./assets/search-icon.png" alt="A maginfying glass icon, indicating the search function">
         </div>
       </div>
     </header>
@@ -27,7 +27,7 @@
         <label for="recipe-search" class="search-directions">Enter ingredients, tags or a name to search for a recipe</label>
         <input type="text" id="searchBar" class="search-field" name="recipe-search" placeholder="ex. grilled, salad, side dish">
         <p class="search-directions">Select a recipe list to search</p>
-        <div class="search-radio-buttons">
+        <div id="searchList" class="search-radio-buttons">
           <input type="radio" id="all" name="searchList" value="all" checked>
           <label for="all">All recipes</label>
           <input type="radio" id="fav" name="searchList" value="fav">
@@ -84,6 +84,9 @@
 <!--      </div>-->
     </section>
 
+    <section id="headsUp">
+    </section>
+    
     <section id="recipeList" class="recipe-list">
       <div class="recipe-card-small hidden">
         <img src="https://spoonacular.com/recipeImages/595736-556x370.jpg">
