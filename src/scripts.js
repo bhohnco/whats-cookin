@@ -85,13 +85,12 @@ homeButton.addEventListener('click', displayHomePage);
     headsUp.innerHTML = `<h2>${message}</h2>`
   }
 
-function updateRecipeList(recipes) {
-  recipeList.innerHTML = '';
-  recipes.forEach(recipe => {
-    const tagList = cleanUpTagArr(recipe.tags);
-    const cardText = `
+  function updateRecipeList(recipes) {
+    recipeList.innerHTML = '';
+    recipes.forEach(recipe => {
+      const tagList = cleanUpTagArr(recipe.tags);
+      const cardText = `
       <div id="${recipe.id}" class="recipe-card-small">
-
         <img src=${recipe.image}>
         <h3>${recipe.name}</h3>
           <div class="small-card-bottom">
