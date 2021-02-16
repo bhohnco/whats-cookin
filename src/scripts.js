@@ -30,6 +30,16 @@ window.addEventListener('load', displayHomePage);
 searchIcon.addEventListener('click', toggleSearchTab);
 searchButton.addEventListener('click', searchRecipes);
 homeButton.addEventListener('click', displayHomePage);
+recipeList.addEventListener('click', function(event) {
+  let id = 0;
+  if (event.target.parentNode.id) {
+    id = event.target.parentNode.id;
+  } else if (event.target.parentNode.parentNode.id) {
+    id = event.target.parentNode.parentNode.id;
+  }
+  const recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
+  displaySingleRecipe(recipe);
+});
 
 // FUNCTIONS
 
@@ -102,8 +112,8 @@ homeButton.addEventListener('click', displayHomePage);
         </div>
       </div>`
     recipeList.innerHTML += cardText;
-  })
-}
+    })
+  }
 
   function cleanUpTagArr(tagArray) {
     if (tagArray.length === 0) {
@@ -128,19 +138,17 @@ homeButton.addEventListener('click', displayHomePage);
     displayHomePage();
   }
 
-
-displaySingleRecipe(allRecipes.recipeList[37])
-// console.log(allRecipes.recipeList[35])
 function displaySingleRecipe(recipe) {
+    hide(recipeList);
+    unhide(singleRecipe);
     const tagList = cleanUpTagArr(recipe.tags);
     const recipeCost = recipe.calculateRecipeCost()
     const recipeIngredients = recipe.generateIngredientNames()
     const recipeDirections = recipe.getInstructions()
-
     const cardText = `
-      <div class="single-recipe-card-small">
-        <img src=${recipe.image}>
+      <div class="recipe-card-small">
         <h3>${recipe.name}</h3>
+        <img src=${recipe.image}>
            <p class="cost-display">Cost for recipe ingredients: $${recipeCost}</p>
            <div class="small-card-bottom">
              <div class="button-box">
@@ -184,15 +192,3 @@ function displaySingleRecipe(recipe) {
   function getRandomIndex(array) {
     return Math.floor(Math.random() * array.length);
   }
-
-
-
-
-// Logo home button
-// User icon user page
-// search bar (we could replace this with a search page that allows for advanced searching)
-// user tab
-// search tab
-// recipeList
-// Each recipe will need to be clickable, probably requires event bubbling
-// Each tag should be clickable to allow for tag search

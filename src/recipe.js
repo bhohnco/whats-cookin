@@ -17,7 +17,7 @@ class Recipe {
       const units = ingredient.quantity.unit
       ingredientsData.find(ingredientData => {
         if (ingredientData.id === id) {
-          ingredientNameList.push(`${ingredientData.name} - amount: ${amount} ${units}  `);
+          ingredientNameList.push(`${amount} ${units} - ${ingredientData.name}`);
         }
       })
     })
