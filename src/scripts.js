@@ -17,6 +17,7 @@ const currentUser = new User(usersData[getRandomIndex(usersData)]);
 
 const homeButton = document.querySelector('#headerLogo');
 const recipeList = document.querySelector('#recipeList');
+const singleRecipe = document.querySelector('#singleRecipe')
 const searchIcon = document.querySelector('#searchIcon');
 const searchTab = document.querySelector('#searchTab');
 const searchButton = document.querySelector('#searchButton');
@@ -84,25 +85,24 @@ homeButton.addEventListener('click', displayHomePage);
     headsUp.innerHTML = `<h2>${message}</h2>`
   }
 
-  function updateRecipeList(recipes) {
-    recipeList.innerHTML = '';
-    recipes.forEach(recipe => {
-      const tagList = cleanUpTagArr(recipe.tags);
-      const cardText = `
-      <div class="recipe-card-small">
+function updateRecipeList(recipes) {
+  recipeList.innerHTML = '';
+  recipes.forEach(recipe => {
+    const tagList = cleanUpTagArr(recipe.tags);
+    const cardText = `
+      <div id="${recipe.id}" class="recipe-card-small">
+
         <img src=${recipe.image}>
         <h3>${recipe.name}</h3>
           <div class="small-card-bottom">
-            <div class="small-card-bottom">
-              <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
-              <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
-              <p class="tag-list-small">${tagList}</p>
-            </div>
+            <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
+            <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
+            <p class="tag-list-small">${tagList}</p>
           </div>
       </div>`
-      recipeList.innerHTML += cardText;
-    })
-  }
+    recipeList.innerHTML += cardText;
+  })
+}
 
   function cleanUpTagArr(tagArray) {
     if (tagArray.length === 0) {
@@ -118,8 +118,10 @@ homeButton.addEventListener('click', displayHomePage);
   }
 
   function displayHomePage() {
+
     hide(searchTab);
     hide(headsUp);
+
     updateRecipeList(allRecipes.recipeList);
   }
 
@@ -127,12 +129,53 @@ homeButton.addEventListener('click', displayHomePage);
     displayHomePage();
   }
 
+
+displaySingleRecipe(allRecipes.recipeList[37])
+console.log(allRecipes.recipeList[35])
+function displaySingleRecipe(recipe) {
+    // const tagList = cleanUpTagArr(recipe.tags);
+    const recipeCost = recipe.calculateRecipeCost()
+    const recipeIngredients = recipe.generateIngredientNames()
+    const recipeDirections = recipe.getInstructions()
+
+    const cardText = `
+      <div class="single-recipe-card-small">
+        <img src=${recipe.image}>
+        <h3>${recipe.name}</h3>
+           <p>Cost for recipe ingredients:</p> <span>$${recipeCost}</span>
+        <div class="small-card-bottom">
+          <div class ="card-buttons">
+            <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
+            <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
+          </div>
+          <p class="tag-list-small"></p>
+        </div>
+        <section class="ingredients-section">
+          <h3 id>Ingredients</h3>
+          <ul>
+            <li>${recipeIngredients}</li>
+          </ul>         
+        </section>
+        <section class="directions-section">
+          <h3>Directions</h3>
+          <ul>
+            <ol>${recipeDirections}</ol>
+          </ul>
+        </section>
+      </div>`
+    singleRecipe.innerHTML += cardText;
+}
+
+  function toggleHide(element) {
+    return element.classList.toggle('hidden');
+
   function hide(element) {
     return element.classList.add('hidden');
   }
 
   function unhide(element) {
     return element.classList.remove('hidden');
+
   }
 
   function toggleClass(element, className) {

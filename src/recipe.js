@@ -1,3 +1,4 @@
+
 class Recipe {
   constructor(id, image, ingredients, instructions, name, tags) {
     this.id = id;
@@ -12,9 +13,11 @@ class Recipe {
     let ingredientNameList = [];
     this.ingredients.forEach(ingredient => {
       const id = ingredient.id;
+      const amount = ingredient.quantity.amount
+      const units = ingredient.quantity.unit
       ingredientsData.find(ingredientData => {
         if (ingredientData.id === id) {
-          ingredientNameList.push(ingredientData.name);
+          ingredientNameList.push(`${ingredientData.name} - amount: ${amount} ${units}  `);
         }
       })
     })
@@ -26,17 +29,18 @@ class Recipe {
     this.ingredients.forEach(listIngredient => {
       ingredientsData.forEach(ingredient => {
         if (listIngredient.id === ingredient.id) {
-          totalCost += (ingredient.estimatedCostInCents * listIngredient.quantity.amount) / 100
+          totalCost += Math.round(ingredient.estimatedCostInCents * listIngredient.quantity.amount)
         }
       });
     });
-    return totalCost;
+    return totalCost/100;
   }
 
   getInstructions() {
     let detailList = [];
     this.instructions.forEach(instruction => {
-      detailList.push(instruction.instruction)
+      const step = instruction.number
+      detailList.push(`Step:${instruction.number}-${instruction.instruction} `)
     });
     return detailList;
   }
