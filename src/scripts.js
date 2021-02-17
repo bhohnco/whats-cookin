@@ -45,7 +45,6 @@ recipeList.addEventListener('click', function(event) {
     id = event.target.parentNode.parentNode.parentNode.id;
     const button = event.target.id;
     saveRecipe(id, button);
-  
   }
 });
 
@@ -66,7 +65,6 @@ function saveRecipe(id, button) {
     currentUser.addToFavorites(recipe)
   }
 }
-
 
 
 function toggleSearchTab() {
@@ -95,7 +93,7 @@ function searchRecipes() {
   });
 
   displaySearchResults(searchTerms, searchResults);
-  
+
 }
  function displaySearchResults(terms, recipes) {
     const termsToDisplay = terms.map(term => {
@@ -122,7 +120,7 @@ function updateHeadsUp(message) {
       const tagList = cleanUpTagArr(recipe.tags);
       const cardText = `
       <div id="${recipe.id}" class="recipe-card-small">
-        <img src=${recipe.image}>
+        <img src=${recipe.image} alt=${recipe.name}>
         <h3>${recipe.name}</h3>
         <div class="small-card-bottom">
           <div class="button-box">
@@ -154,6 +152,9 @@ function convertIdToName(id) {
 function displayHomePage() {
     hide(searchTab);
     hide(headsUp);
+    hide(singleRecipe);
+    unhide(recipeList);
+    removeClass(searchIcon, 'user-icon-active')
     updateRecipeList(allRecipes.recipeList);
   }
 
@@ -163,39 +164,43 @@ function pageLoad() {
 }
 
 function displaySingleRecipe(recipe) {
-    hide(recipeList);
-    unhide(singleRecipe);
-    const tagList = cleanUpTagArr(recipe.tags);
-    const recipeCost = recipe.calculateRecipeCost()
-    const recipeIngredients = formatIngredientList(recipe.generateIngredientNames());
-    const recipeDirections = formatDirections(recipe.getInstructions());
-    const cardText = `
-      <div class="recipe-card-small">
-        <h3>${recipe.name}</h3>
-        <img src=${recipe.image}>
-           <p class="cost-display">Cost for recipe ingredients: $${recipeCost}</p>
-           <div class="small-card-bottom">
-             <div class="button-box">
-               <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
-               <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
-             </div>
-             <p class="tag-list-small">${tagList}</p>
+  hide(recipeList);
+  hide(searchTab);
+  unhide(singleRecipe);
+  removeClass(searchIcon, 'user-icon-active');
+  singleRecipe.innerHTML = '';
+  singleRecipe.scrollTo(0, 0);
+  const tagList = cleanUpTagArr(recipe.tags);
+  const recipeCost = recipe.calculateRecipeCost()
+  const recipeIngredients = formatIngredientList(recipe.generateIngredientNames());
+  const recipeDirections = formatDirections(recipe.getInstructions());
+  const cardText = `
+    <div class="recipe-card-small">
+      <h3>${recipe.name}</h3>
+      <img src=${recipe.image} alt=${recipe.name}>
+         <p class="cost-display">Cost for recipe ingredients: $${recipeCost}</p>
+         <div class="small-card-bottom">
+           <div class="button-box">
+             <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
+             <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
            </div>
-        <section class="ingredients-section">
-          <h3>Ingredients</h3>
-          <ul class="single-recipe-lists">
-            ${recipeIngredients}
-          </ul>
-        </section>
-        <section class="directions-section">
-          <h3>Directions</h3>
-          <ol class="single-recipe-lists">
-            ${recipeDirections}
-          </ol>
-        </section>
-      </div>`
-singleRecipe.innerHTML += cardText;
-}
+           <p class="tag-list-small">${tagList}</p>
+         </div>
+      <section class="ingredients-section">
+        <h3>Ingredients</h3>
+        <ul class="single-recipe-lists">
+          ${recipeIngredients}
+        </ul>
+      </section>
+      <section class="directions-section">
+        <h3>Directions</h3>
+        <ol class="single-recipe-lists">
+          ${recipeDirections}
+        </ol>
+      </section>
+    </div>`
+    singleRecipe.innerHTML += cardText;
+  }
 
  function formatIngredientList(ingredients) {
    let formattedList = '';
@@ -211,25 +216,28 @@ singleRecipe.innerHTML += cardText;
      formattedList += `<li>${direction}</li>`
    });
    return formattedList;
- };
+};
 
   function toggleHide(element) {
     return element.classList.toggle('hidden');
   }
+
   function hide(element) {
     return element.classList.add('hidden');
   }
 
-function unhide(element) {
-  return element.classList.remove('hidden');
-
-}
-
-function toggleClass(element, className) {
-  return element.classList.toggle(className);
-}
-
-function getRandomIndex(array) {
-    return Math.floor(Math.random() * array.length);
+  function unhide(element) {
+    return element.classList.remove('hidden');
   }
 
+  function toggleClass(element, className) {
+    return element.classList.toggle(className);
+  }
+
+  function removeClass(element, className) {
+    return element.classList.remove(className)
+  }
+
+  function getRandomIndex(array) {
+    return Math.floor(Math.random() * array.length);
+  }
