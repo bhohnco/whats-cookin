@@ -95,6 +95,20 @@ function searchRecipes() {
   displaySearchResults(searchTerms, searchResults);
 
 }
+
+function saveRecipe(id, button) {
+  const recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
+  if (button === 'toCookButton' && currentUser.recipesToCook.includes(recipe)) {
+    currentUser.removeRecipeToCook(recipe)
+  } else if  (button === 'toCookButton') {
+    currentUser.addToRecipesToCook(recipe)
+  } if (button === 'favoriteButton' && currentUser.favoriteRecipes.includes(recipe)) {
+    currentUser.removeFavoriteRecipe(recipe)
+  } else if (button === 'favoriteButton') {
+    currentUser.addToFavorites(recipe)
+  }
+}
+
  function displaySearchResults(terms, recipes) {
     const termsToDisplay = terms.map(term => {
       return " '"+`${term}`+"'";
