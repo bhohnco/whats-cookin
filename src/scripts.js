@@ -45,8 +45,7 @@ recipeList.addEventListener('click', function(event) {
     id = event.target.parentNode.parentNode.parentNode.id;
     const button = event.target.id;
     saveRecipe(id, button);
-    console.log(currentUser);
-    console.log(button);
+  
   }
 });
 
@@ -67,6 +66,7 @@ function saveRecipe(id, button) {
     currentUser.addToFavorites(recipe)
   }
 }
+
 
 
 function toggleSearchTab() {
@@ -95,45 +95,46 @@ function searchRecipes() {
   });
 
   displaySearchResults(searchTerms, searchResults);
+  
 }
-
-function displaySearchResults(terms, recipes) {
-  const termsToDisplay = terms.map(term => {
-    return " '" + `${term}` + "'";
-  });
-  toggleSearchTab();
-  unhide(headsUp);
-  if (recipes.length > 0) {
-    updateHeadsUp(`Search results for ${termsToDisplay}`);
-  } else {
-    updateHeadsUp(`Sorry, there were results for ${termsToDisplay}`)
-  }
-  updateRecipeList(recipes);
-  searchBar.value = '';
-}
+ function displaySearchResults(terms, recipes) {
+    const termsToDisplay = terms.map(term => {
+      return " '"+`${term}`+"'";
+    });
+    toggleSearchTab();
+    unhide(headsUp);
+    if (recipes.length > 0) {
+      updateHeadsUp(`Search results for ${termsToDisplay}`);
+    } else {
+      updateHeadsUp(`Sorry, there were no results for ${termsToDisplay}`)
+    }
+    updateRecipeList(recipes);
+    searchBar.value = '';
+    }
 
 function updateHeadsUp(message) {
   headsUp.innerHTML = `<h2>${message}</h2>`
 }
 
-function updateRecipeList(recipes) {
-  recipeList.innerHTML = '';
-  recipes.forEach(recipe => {
-    const tagList = cleanUpTagArr(recipe.tags);
-    const cardText = `
+  function updateRecipeList(recipes) {
+    recipeList.innerHTML = '';
+    recipes.forEach(recipe => {
+      const tagList = cleanUpTagArr(recipe.tags);
+      const cardText = `
       <div id="${recipe.id}" class="recipe-card-small">
-
         <img src=${recipe.image}>
         <h3>${recipe.name}</h3>
-          <div class="small-card-bottom">
+        <div class="small-card-bottom">
+          <div class="button-box">
             <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
-            <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
-            <p class="tag-list-small">${tagList}</p>
+            <input class="to-cook-button-small" type="image" id="toCookButton" alt="favorite button" src="./assets/cookpot1.png">
           </div>
+          <p class="tag-list-small">${tagList}</p>
+        </div>
       </div>`
     recipeList.innerHTML += cardText;
-  })
-}
+    })
+  }
 
 function cleanUpTagArr(tagArray) {
   if (tagArray.length === 0) {
@@ -151,61 +152,73 @@ function convertIdToName(id) {
 }
 
 function displayHomePage() {
+    hide(searchTab);
+    hide(headsUp);
+    updateRecipeList(allRecipes.recipeList);
+  }
 
-  hide(searchTab);
-  hide(headsUp);
-
-  updateRecipeList(allRecipes.recipeList);
-}
 
 function pageLoad() {
   displayHomePage();
 }
 
-
-displaySingleRecipe(allRecipes.recipeList[37])
-console.log(allRecipes.recipeList[35])
 function displaySingleRecipe(recipe) {
-  // const tagList = cleanUpTagArr(recipe.tags);
-  const recipeCost = recipe.calculateRecipeCost()
-  const recipeIngredients = recipe.generateIngredientNames()
-  const recipeDirections = recipe.getInstructions()
-
-  const cardText = `
-      <div class="single-recipe-card-small">
-        <img src=${recipe.image}>
+    hide(recipeList);
+    unhide(singleRecipe);
+    const tagList = cleanUpTagArr(recipe.tags);
+    const recipeCost = recipe.calculateRecipeCost()
+    const recipeIngredients = formatIngredientList(recipe.generateIngredientNames());
+    const recipeDirections = formatDirections(recipe.getInstructions());
+    const cardText = `
+      <div class="recipe-card-small">
         <h3>${recipe.name}</h3>
-           <p>Cost for recipe ingredients:</p> <span>$${recipeCost}</span>
-        <div class="small-card-bottom">
-          <div class ="card-buttons">
-            <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
-            <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
-          </div>
-          <p class="tag-list-small"></p>
-        </div>
+        <img src=${recipe.image}>
+           <p class="cost-display">Cost for recipe ingredients: $${recipeCost}</p>
+           <div class="small-card-bottom">
+             <div class="button-box">
+               <input class="fav-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/heart_icon.png">
+               <input class="to-cook-button-small" type="image" id="favoriteButton" alt="favorite button" src="./assets/cookpot1.png">
+             </div>
+             <p class="tag-list-small">${tagList}</p>
+           </div>
         <section class="ingredients-section">
-          <h3 id>Ingredients</h3>
-          <ul>
-            <li>${recipeIngredients}</li>
-          </ul>         
+          <h3>Ingredients</h3>
+          <ul class="single-recipe-lists">
+            ${recipeIngredients}
+          </ul>
         </section>
         <section class="directions-section">
           <h3>Directions</h3>
-          <ul>
-            <ol>${recipeDirections}</ol>
-          </ul>
+          <ol class="single-recipe-lists">
+            ${recipeDirections}
+          </ol>
         </section>
       </div>`
-  singleRecipe.innerHTML += cardText;
+singleRecipe.innerHTML += cardText;
 }
 
-function toggleHide(element) {
-  return element.classList.toggle('hidden');
-}
+ function formatIngredientList(ingredients) {
+   let formattedList = '';
+   ingredients.forEach(ingredient => {
+     formattedList += `<li>${ingredient}</li>`;
+   });
+   return formattedList;
+ };
 
-function hide(element) {
-  return element.classList.add('hidden');
-}
+ function formatDirections(directions) {
+   let formattedList = '';
+   directions.forEach(direction => {
+     formattedList += `<li>${direction}</li>`
+   });
+   return formattedList;
+ };
+
+  function toggleHide(element) {
+    return element.classList.toggle('hidden');
+  }
+  function hide(element) {
+    return element.classList.add('hidden');
+  }
 
 function unhide(element) {
   return element.classList.remove('hidden');
@@ -217,17 +230,6 @@ function toggleClass(element, className) {
 }
 
 function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
-}
+    return Math.floor(Math.random() * array.length);
+  }
 
-
-
-
-// Logo home button
-// User icon user page
-// search bar (we could replace this with a search page that allows for advanced searching)
-// user tab
-// search tab
-// recipeList
-// Each recipe will need to be clickable, probably requires event bubbling
-// Each tag should be clickable to allow for tag search
