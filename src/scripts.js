@@ -23,7 +23,8 @@ const searchTab = document.querySelector('#searchTab');
 const searchButton = document.querySelector('#searchButton');
 const searchBar = document.querySelector('#searchBar');
 const headsUp = document.querySelector('#headsUp');
-
+const favoriteButton = document.querySelector('#favoriteButton')
+const toCookButton = document.querySelector('#toCookButton')
 
 // Event listeners
 window.addEventListener('load', displayHomePage);
@@ -43,45 +44,60 @@ recipeList.addEventListener('click', function(event) {
   } else {
     id = event.target.parentNode.parentNode.parentNode.id;
     const button = event.target.id;
+    saveRecipe(id, button);
+  
   }
 });
 
+
 // FUNCTIONS
 
-  function displayUserTab() {
-    //reveals user tab under header and above current recipe recipe list
-    // has buttons to that call updateRecipeList(user.toCook) or updateRecipeList(favorites)
+function displayUserTab() {
+  //reveals user tab under header and above current recipe recipe list
+  // has buttons to that call updateRecipeList(user.toCook) or updateRecipeList(favorites)
+}
+
+function saveRecipe(id, button) {
+  const recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
+  if (button === toCookButton) {
+    currentUser.addToRecipesToCook(recipe)
+  }
+  if (button === favoriteButton) {
+    currentUser.addToFavorites(recipe)
+  }
+}
+
+
+
+function toggleSearchTab() {
+  toggleClass(searchTab, 'hidden');
+  toggleClass(searchIcon, 'user-icon-active')
+}
+
+function searchRecipes() {
+  const searchInput = searchBar.value; //take input from form
+  const rawTerms = searchInput.split(','); //seprate by comma
+  const searchTerms = rawTerms.map(term => term.trim()); //remove any whitespace
+  const searchList = document.querySelector(`input[type="radio"]:checked`);
+
+  if (searchList.value === 'all') {
+    var tagResults = allRecipes.returnTagList(searchTerms) || [];
+    var nameResults = allRecipes.returnNameList(searchTerms) || [];
+  } else if (searchList.value === 'fav') {
+    //assign tag and name to the values of the user methods
+  } else {
+    // assign tag and name to the values of the use methods
   }
 
-  function toggleSearchTab() {
-    toggleClass(searchTab, 'hidden');
-    toggleClass(searchIcon, 'user-icon-active')
-  }
+  const mergeResults = tagResults.concat(nameResults);
+  const searchResults = mergeResults.filter((result, index) => {
+    return mergeResults.indexOf(result) === index;
+  });
 
-  function searchRecipes() {
-    const searchInput = searchBar.value; //take input from form
-    const rawTerms = searchInput.split(','); //seprate by comma
-    const searchTerms = rawTerms.map(term => term.trim()); //remove any whitespace
-    const searchList = document.querySelector(`input[type="radio"]:checked`);
-
-    if (searchList.value === 'all') {
-      var tagResults = allRecipes.returnTagList(searchTerms) || [];
-      var nameResults = allRecipes.returnNameList(searchTerms) || [];
-    } else if (searchList.value === 'fav') {
-      //assign tag and name to the values of the user methods
-    } else {
-      // assign tag and name to the values of the use methods
-    }
-
-    const mergeResults = tagResults.concat(nameResults);
-    const searchResults = mergeResults.filter((result, index) => {
-      return mergeResults.indexOf(result) === index;
-    });
-
-    displaySearchResults(searchTerms, searchResults);
-  }
-
-  function displaySearchResults(terms, recipes) {
+  displaySearchResults(searchTerms, searchResults);
+  
+}
+ function displaySearchResults(terms, recipes) {
     const termsToDisplay = terms.map(term => {
       return " '"+`${term}`+"'";
     });
@@ -94,11 +110,11 @@ recipeList.addEventListener('click', function(event) {
     }
     updateRecipeList(recipes);
     searchBar.value = '';
-  }
+    }
 
-  function updateHeadsUp(message) {
-    headsUp.innerHTML = `<h2>${message}</h2>`
-  }
+function updateHeadsUp(message) {
+  headsUp.innerHTML = `<h2>${message}</h2>`
+}
 
   function updateRecipeList(recipes) {
     recipeList.innerHTML = '';
@@ -120,28 +136,31 @@ recipeList.addEventListener('click', function(event) {
     })
   }
 
-  function cleanUpTagArr(tagArray) {
-    if (tagArray.length === 0) {
-      return [' '];
-    } else if (tagArray.length > 1) {
-        const returnString = tagArray.map(tag => ` ${tag}`);
-      return returnString;
-     } else return tagArray[0];
+function cleanUpTagArr(tagArray) {
+  if (tagArray.length === 0) {
+    return [' '];
+  } else if (tagArray.length > 1) {
+    const returnString = tagArray.map(tag => ` ${tag}`);
+    return returnString;
+  } else {
+    return tagArray[0];
   }
+}
 
-  function convertIdToName(id) {
-    // return ingredient name based on id
-  }
+function convertIdToName(id) {
+  // return ingredient name based on id
+}
 
-  function displayHomePage() {
+function displayHomePage() {
     hide(searchTab);
     hide(headsUp);
     updateRecipeList(allRecipes.recipeList);
   }
 
-  function pageLoad() {
-    displayHomePage();
-  }
+
+function pageLoad() {
+  displayHomePage();
+}
 
 function displaySingleRecipe(recipe) {
     hide(recipeList);
@@ -175,8 +194,8 @@ function displaySingleRecipe(recipe) {
           </ol>
         </section>
       </div>`
-    singleRecipe.innerHTML += cardText;
-};
+singleRecipe.innerHTML += cardText;
+}
 
  function formatIngredientList(ingredients) {
    let formattedList = '';
@@ -201,15 +220,16 @@ function displaySingleRecipe(recipe) {
     return element.classList.add('hidden');
   }
 
-  function unhide(element) {
-    return element.classList.remove('hidden');
+function unhide(element) {
+  return element.classList.remove('hidden');
 
-  }
+}
 
-  function toggleClass(element, className) {
-    return element.classList.toggle(className);
-  }
+function toggleClass(element, className) {
+  return element.classList.toggle(className);
+}
 
-  function getRandomIndex(array) {
+function getRandomIndex(array) {
     return Math.floor(Math.random() * array.length);
   }
+
