@@ -119,7 +119,7 @@ function updateHeadsUp(message) {
     recipes.forEach(recipe => {
       const tagList = cleanUpTagArr(recipe.tags);
       const cardText = `
-      <div id="${recipe.id}" class="recipe-card-small">
+      <div id="${recipe.id}" class="recipe-card-small hover">
         <img src=${recipe.image} alt=${recipe.name}>
         <h3>${recipe.name}</h3>
         <div class="small-card-bottom">
@@ -175,9 +175,9 @@ function displaySingleRecipe(recipe) {
   const recipeIngredients = formatIngredientList(recipe.generateIngredientNames());
   const recipeDirections = formatDirections(recipe.getInstructions());
   const cardText = `
-    <div class="recipe-card-small">
+    <div class="single-recipe-card-small">
       <h3>${recipe.name}</h3>
-      <img src=${recipe.image} alt=${recipe.name}>
+      <img class="single-recipe-img" src=${recipe.image} alt=${recipe.name}>
          <p class="cost-display">Cost for recipe ingredients: $${recipeCost}</p>
          <div class="small-card-bottom">
            <div class="button-box">
