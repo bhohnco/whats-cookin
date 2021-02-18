@@ -34,7 +34,7 @@ class User {
   filterFavoriteRecipesByName(searchName, recipeList) {
     let foundRecipes = [];
     recipeList.filter(recipe => {
-      let recipeName = recipe.name;
+      let recipeName = recipe.name.toLowerCase();
       if (recipeName.includes(searchName)) {
         foundRecipes.push(recipe)
       }
@@ -61,7 +61,6 @@ class User {
     });
     return returnRecipes;
   }
-
 }
 
 if (typeof module !== 'undefined') {
