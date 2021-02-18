@@ -91,7 +91,6 @@ function userRecipeFilter(id) {
     updateHeadsUp('My recipes to cook');
     updateRecipeList(currentUser.recipesToCook);
   }
-
 }
 
 function saveRecipe(id, button) {
@@ -180,7 +179,7 @@ function displayHomePage() {
     hide(headsUp);
     hide(singleRecipe);
     unhide(recipeList);
-    removeClass(searchIcon, 'user-icon-active')
+    removeClass(searchIcon, 'search-icon-active')
     updateRecipeList(allRecipes.recipeList);
   }
 
