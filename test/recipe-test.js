@@ -75,16 +75,16 @@ describe('Recipe', () => {
     });
 
     it('should initialize with an array of instructions', () =>
-        expect(recipe.instructions).to.deep.eq([
-          {
-            "instruction": "In a large mixing bowl, whisk together the dry ingredients (flour, pudding mix, soda and salt). Set aside.In a large mixing bowl of a stand mixer, cream butter for 30 seconds. Gradually add granulated sugar and brown sugar and cream until light and fluffy.",
-            "number": 1
-          },
-          {
-            "instruction": "Add egg and vanilla and mix until combined.",
-            "number": 2
+      expect(recipe.instructions).to.deep.eq([
+        {
+          "instruction": "In a large mixing bowl, whisk together the dry ingredients (flour, pudding mix, soda and salt). Set aside.In a large mixing bowl of a stand mixer, cream butter for 30 seconds. Gradually add granulated sugar and brown sugar and cream until light and fluffy.",
+          "number": 1
+        },
+        {
+          "instruction": "Add egg and vanilla and mix until combined.",
+          "number": 2
 
-          }]))
+        }]))
 
 
 
@@ -104,8 +104,8 @@ describe('Recipe', () => {
     });
   });
 
-    describe('Recipe methods', () => {
-      let recipe;
+  describe('Recipe methods', () => {
+    let recipe;
 
     beforeEach( () => {
       recipe = new Recipe(595736, "https://spoonacular.com/recipeImages/595736-556x370.jpg", [
@@ -140,7 +140,7 @@ describe('Recipe', () => {
       ]);
     });
 
-      it('should be able to add name to ingredients ID', () =>  {
+    it('should be able to add name to ingredients ID', () =>  {
       expect(recipe.generateIngredientNames(recipe)).to.deep.equal(['wheat flour', 'bicarbonate of soda']);
     });
 
@@ -150,12 +150,12 @@ describe('Recipe', () => {
 
     it('it should return the recipe instructions', () =>  {
       expect(recipe.getInstructions()).to.deep.equal([
-          "In a large mixing bowl, whisk together the dry ingredients (flour, pudding mix, soda and salt). Set aside.In a large mixing bowl of a stand mixer, cream butter for 30 seconds. Gradually add granulated sugar and brown sugar and cream until light and fluffy.",
-          "Add egg and vanilla and mix until combined."
+        "In a large mixing bowl, whisk together the dry ingredients (flour, pudding mix, soda and salt). Set aside.In a large mixing bowl of a stand mixer, cream butter for 30 seconds. Gradually add granulated sugar and brown sugar and cream until light and fluffy.",
+        "Add egg and vanilla and mix until combined."
       ])
     });
 
-});
+  });
 
 });
 
