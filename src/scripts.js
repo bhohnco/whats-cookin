@@ -1,5 +1,4 @@
 // Global variables
-
 const repo = recipeData.map(recipe => {
   const newRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
   return newRecipe;
@@ -56,44 +55,41 @@ function displayUserTab() {
   // has buttons to that call updateRecipeList(user.toCook) or updateRecipeList(favorites)
 }
 
-function saveRecipe(id, button) {
-  const recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
-  if (button === toCookButton) {
-    currentUser.addToRecipesToCook(recipe)
-  }
-  if (button === favoriteButton) {
-    currentUser.addToFavorites(recipe)
-  }
-}
-
-
 function toggleSearchTab() {
   toggleClass(searchTab, 'hidden');
   toggleClass(searchIcon, 'user-icon-active')
 }
 
 function searchRecipes() {
-  const searchInput = searchBar.value; //take input from form
-  const rawTerms = searchInput.split(','); //seprate by comma
-  const searchTerms = rawTerms.map(term => term.trim()); //remove any whitespace
+  const searchInput = searchBar.value;
+  const rawTerms = searchInput.split(',');
+  const searchTerms = rawTerms.map(term => term.trim());
   const searchList = document.querySelector(`input[type="radio"]:checked`);
-
+  let tagResults = [];
+  let nameResults = [];
+  let ingredientResults = [];
   if (searchList.value === 'all') {
-    var tagResults = allRecipes.returnTagList(searchTerms) || [];
-    var nameResults = allRecipes.returnNameList(searchTerms) || [];
+     tagResults = allRecipes.returnTagList(searchTerms) || [];
+     nameResults = allRecipes.returnNameList(searchTerms) || [];
   } else if (searchList.value === 'fav') {
-    //assign tag and name to the values of the user methods
-  } else {
-    // assign tag and name to the values of the use methods
+     tagResults = searchTerms.reduce((total, term ) => {
+       let currentResults = currentUser.filterFavoriteRecipesByTag(term, currentUser.favoriteRecipes)
+       return currentResults
+     }, []);
+    nameResults = searchTerms.reduce((total, term) => {
+      let currentNameResults = currentUser.filterFavoriteRecipesByName(term, currentUser.favoriteRecipes)
+      return currentNameResults
+    }, []);
+    ingredientResults = searchTerms.reduce((total, term) => {
+      let currentIngredientResults = currentUser.filterFavoriteRecipesByIngredient(term, currentUser.favoriteRecipes)
+      return currentIngredientResults
+    }, []);
   }
-
-  const mergeResults = tagResults.concat(nameResults);
+  const mergeResults = tagResults.concat(nameResults, ingredientResults);
   const searchResults = mergeResults.filter((result, index) => {
     return mergeResults.indexOf(result) === index;
   });
-
   displaySearchResults(searchTerms, searchResults);
-
 }
 
 function saveRecipe(id, button) {
@@ -160,7 +156,6 @@ function cleanUpTagArr(tagArray) {
 }
 
 function convertIdToName(id) {
-  // return ingredient name based on id
 }
 
 function displayHomePage() {
@@ -172,8 +167,7 @@ function displayHomePage() {
     updateRecipeList(allRecipes.recipeList);
   }
 
-
-function pageLoad() {
+  function pageLoad() {
   displayHomePage();
 }
 
