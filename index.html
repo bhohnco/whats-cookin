@@ -15,7 +15,7 @@
       </div>
       <div class="header-controls">
         <div class="header-button">
-          <img id="userButton" class="user-icon" src="./assets/Sample_User_Icon.png" alt="A human icon, indicating the user">
+          <img id="userIcon" class="user-icon" src="./assets/Sample_User_Icon.png" alt="A human icon, indicating the user">
         </div>
         <div class="header-button">
           <img id="searchIcon" class="search-icon hover" src="./assets/search-icon.png" alt="A maginfying glass icon, indicating the search function">
@@ -33,14 +33,21 @@
           <label for="all">All recipes</label>
           <input type="radio" id="fav" name="searchList" value="fav">
           <label for="fav">My favorites</label>
-          <input type="radio" id="toCook" name="searchList" value="toCook">
-          <label for="toCook">My recipes to cook</label>
         </div>
         <button id="searchButton" class="search-button">search</button>
       </div>
     </section>
 
-    <section class='user-tab hidden'>
+    <section id="userTab" class="user-tab hidden">
+      <div class="user-input">
+        <p id="userGreeting" class="user-greeting">Hi!</p>
+        <p class="filter-directions">Click below to filter you recipe feed</p>
+        <div id="filterList" class="user-buttons">
+          <button id="all">All recipes</button>
+          <button id="fav">My favorites</button>
+          <button id="toCook">My recipes to cook</button>
+        </div>
+      </div>
     </section>
 
     <section id="singleRecipe" class="single-recipe hidden">

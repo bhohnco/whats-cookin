@@ -42,8 +42,8 @@ header {
 }
 
 .user-icon-active {
-  background-color: #bfb;
-  border-color: #4c4;
+  background-color: #CD99FF;
+  border-color: #B970FF;
 }
 
 .search-icon {
@@ -141,12 +141,38 @@ h2 {
 
 /* User tab */
 .user-tab {
-  background-color: #E6D2A2;
+  background-color: #CD99FF;
   width: 95%;
-  height: 200px;
-  border: solid 2px;
+  height: 145px;
+  display: flex;
+  flex-direction: column;
+  border: solid 3px;
   margin: 0 auto;
+  padding: 0 10px 7px 10px;
 }
+
+
+.user-greeting {
+  width: 100%;
+  font-weight: 500;
+  font-size: 20px;
+  margin: 15px 0 10px 0;
+}
+
+.user-buttons {
+  width: 80%;
+  display: flex;
+  margin: 10px 0px 10px 0px;
+  justify-content: space-between;
+}
+
+.user-buttons button{
+  font-size: 12px;
+  background-color: #ddd;
+  border: 2px solid #444;
+  border-radius: 4px;
+}
+
 
 /* Recipe list */
 .recipe-list {
@@ -163,6 +189,11 @@ h2 {
   align-content: center;
   margin: 10px auto;
   border: solid 3px;
+}
+
+.card-image {
+  background-position: top;
+  object-fit: cover;
 }
 
 h3 {
@@ -228,7 +259,6 @@ h3 {
     border: solid 3px;
   }
 
-
   .cost-display {
     background-color: black;
     color: #FEC001;
@@ -276,8 +306,8 @@ h3 {
   }
 
   .user-icon-active {
-    background-color: #bfb;
-    border-color: #4c4;
+    background-color: #CD99FF;
+    border-color: #B970FF;
   }
 
   .search-icon {
@@ -340,7 +370,7 @@ h3 {
 /* single recipe */
 
   h3 {
-    font-size: 30px;
+    font-size: 20px;
   }
 
   .cost-display {
@@ -413,6 +443,41 @@ h3 {
     font-size: 15px;
   }
 }
+
+/* user tab */
+  .user-tab {
+    background-color: #CD99FF;
+    width: 95%;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    border: solid 3px;
+    margin: 0 auto;
+    padding: 0 10px 7px 10px;
+  }
+
+
+  .user-greeting {
+    width: 100%;
+    font-weight: 500;
+    font-size: 20px;
+    margin: 15px 0 10px 0;
+  }
+
+  .user-buttons {
+    width: 80%;
+    display: flex;
+    margin: 10px 0px 10px 0px;
+    justify-content: space-between;
+  }
+
+  .user-buttons button {
+    background-color: #ddd;
+    font-size: 14px;
+    border: 2px solid #444;
+    border-radius: 4px;
+    padding: 5px;
+  }
 
 /* UTILITY */
 .hidden {
