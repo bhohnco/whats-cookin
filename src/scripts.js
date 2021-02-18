@@ -1,19 +1,14 @@
-// Global variables
 const repo = recipeData.map(recipe => {
   const newRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
   return newRecipe;
 });
 const allRecipes = new Reciperepo(repo);
-
 const ingredientList = ingredientsData.map(ingredient => {
   const newIngredient = new Ingredient(ingredient);
   return newIngredient;
 });
 
 const currentUser = new User(usersData[getRandomIndex(usersData)]);
-
-// DOM ELEMENTS
-
 const homeButton = document.querySelector('#headerLogo');
 const recipeList = document.querySelector('#recipeList');
 const singleRecipe = document.querySelector('#singleRecipe')
@@ -22,10 +17,7 @@ const searchTab = document.querySelector('#searchTab');
 const searchButton = document.querySelector('#searchButton');
 const searchBar = document.querySelector('#searchBar');
 const headsUp = document.querySelector('#headsUp');
-const favoriteButton = document.querySelector('#favoriteButton')
-const toCookButton = document.querySelector('#toCookButton')
 
-// Event listeners
 window.addEventListener('load', displayHomePage);
 searchIcon.addEventListener('click', toggleSearchTab);
 searchButton.addEventListener('click', searchRecipes);
@@ -47,14 +39,6 @@ recipeList.addEventListener('click', function(event) {
   }
 });
 
-
-// FUNCTIONS
-
-function displayUserTab() {
-  //reveals user tab under header and above current recipe recipe list
-  // has buttons to that call updateRecipeList(user.toCook) or updateRecipeList(favorites)
-}
-
 function toggleSearchTab() {
   toggleClass(searchTab, 'hidden');
   toggleClass(searchIcon, 'user-icon-active')
@@ -69,13 +53,13 @@ function searchRecipes() {
   let nameResults = [];
   let ingredientResults = [];
   if (searchList.value === 'all') {
-     tagResults = allRecipes.returnTagList(searchTerms) || [];
-     nameResults = allRecipes.returnNameList(searchTerms) || [];
+    tagResults = allRecipes.returnTagList(searchTerms) || [];
+    nameResults = allRecipes.returnNameList(searchTerms) || [];
   } else if (searchList.value === 'fav') {
-     tagResults = searchTerms.reduce((total, term ) => {
-       let currentResults = currentUser.filterFavoriteRecipesByTag(term, currentUser.favoriteRecipes)
-       return currentResults
-     }, []);
+    tagResults = searchTerms.reduce((total, term ) => {
+      let currentResults = currentUser.filterFavoriteRecipesByTag(term, currentUser.favoriteRecipes)
+      return currentResults
+    }, []);
     nameResults = searchTerms.reduce((total, term) => {
       let currentNameResults = currentUser.filterFavoriteRecipesByName(term, currentUser.favoriteRecipes)
       return currentNameResults
@@ -105,30 +89,30 @@ function saveRecipe(id, button) {
   }
 }
 
- function displaySearchResults(terms, recipes) {
-    const termsToDisplay = terms.map(term => {
-      return " '"+`${term}`+"'";
-    });
-    toggleSearchTab();
-    unhide(headsUp);
-    if (recipes.length > 0) {
-      updateHeadsUp(`Search results for ${termsToDisplay}`);
-    } else {
-      updateHeadsUp(`Sorry, there were no results for ${termsToDisplay}`)
-    }
-    updateRecipeList(recipes);
-    searchBar.value = '';
-    }
+function displaySearchResults(terms, recipes) {
+  const termsToDisplay = terms.map(term => {
+    return " '" + `${term}` + "'";
+  });
+  toggleSearchTab();
+  unhide(headsUp);
+  if (recipes.length > 0) {
+    updateHeadsUp(`Search results for ${termsToDisplay}`);
+  } else {
+    updateHeadsUp(`Sorry, there were no results for ${termsToDisplay}`)
+  }
+  updateRecipeList(recipes);
+  searchBar.value = '';
+}
 
 function updateHeadsUp(message) {
   headsUp.innerHTML = `<h2>${message}</h2>`
 }
 
-  function updateRecipeList(recipes) {
-    recipeList.innerHTML = '';
-    recipes.forEach(recipe => {
-      const tagList = cleanUpTagArr(recipe.tags);
-      const cardText = `
+function updateRecipeList(recipes) {
+  recipeList.innerHTML = '';
+  recipes.forEach(recipe => {
+    const tagList = cleanUpTagArr(recipe.tags);
+    const cardText = `
       <div id="${recipe.id}" class="recipe-card-small hover">
         <img src=${recipe.image} alt=${recipe.name}>
         <h3>${recipe.name}</h3>
@@ -141,8 +125,8 @@ function updateHeadsUp(message) {
         </div>
       </div>`
     recipeList.innerHTML += cardText;
-    })
-  }
+  })
+}
 
 function cleanUpTagArr(tagArray) {
   if (tagArray.length === 0) {
@@ -155,20 +139,13 @@ function cleanUpTagArr(tagArray) {
   }
 }
 
-function convertIdToName(id) {
-}
-
 function displayHomePage() {
-    hide(searchTab);
-    hide(headsUp);
-    hide(singleRecipe);
-    unhide(recipeList);
-    removeClass(searchIcon, 'user-icon-active')
-    updateRecipeList(allRecipes.recipeList);
-  }
-
-  function pageLoad() {
-  displayHomePage();
+  hide(searchTab);
+  hide(headsUp);
+  hide(singleRecipe);
+  unhide(recipeList);
+  removeClass(searchIcon, 'user-icon-active')
+  updateRecipeList(allRecipes.recipeList);
 }
 
 function displaySingleRecipe(recipe) {
@@ -207,45 +184,41 @@ function displaySingleRecipe(recipe) {
         </ol>
       </section>
     </div>`
-    singleRecipe.innerHTML += cardText;
-  }
+  singleRecipe.innerHTML += cardText;
+}
 
- function formatIngredientList(ingredients) {
-   let formattedList = '';
-   ingredients.forEach(ingredient => {
-     formattedList += `<li>${ingredient}</li>`;
-   });
-   return formattedList;
- };
+function formatIngredientList(ingredients) {
+  let formattedList = '';
+  ingredients.forEach(ingredient => {
+    formattedList += `<li>${ingredient}</li>`;
+  });
+  return formattedList;
+}
 
- function formatDirections(directions) {
-   let formattedList = '';
-   directions.forEach(direction => {
-     formattedList += `<li>${direction}</li>`
-   });
-   return formattedList;
-};
+function formatDirections(directions) {
+  let formattedList = '';
+  directions.forEach(direction => {
+    formattedList += `<li>${direction}</li>`
+  });
+  return formattedList;
+}
 
-  function toggleHide(element) {
-    return element.classList.toggle('hidden');
-  }
+function hide(element) {
+  return element.classList.add('hidden');
+}
 
-  function hide(element) {
-    return element.classList.add('hidden');
-  }
+function unhide(element) {
+  return element.classList.remove('hidden');
+}
 
-  function unhide(element) {
-    return element.classList.remove('hidden');
-  }
+function toggleClass(element, className) {
+  return element.classList.toggle(className);
+}
 
-  function toggleClass(element, className) {
-    return element.classList.toggle(className);
-  }
+function removeClass(element, className) {
+  return element.classList.remove(className)
+}
 
-  function removeClass(element, className) {
-    return element.classList.remove(className)
-  }
-
-  function getRandomIndex(array) {
-    return Math.floor(Math.random() * array.length);
-  }
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length);
+}
