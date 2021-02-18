@@ -26,8 +26,8 @@ class Pantry {
   checkPantryForRequiredIngedients(recipe) {
     let requiredIngredient = recipe.ingredients
     let ingredientsAvailable = {
-      canCook : true,
-      missingIngredients : []
+      canCook: true,
+      missingIngredients: []
     };
     requiredIngredient.forEach(ingredient => {
       let matchingPantryItem = this.stockedIngredients.reduce((stock, pantryItem) => {

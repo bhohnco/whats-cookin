@@ -1,10 +1,8 @@
-// Global variables
 const repo = recipeData.map(recipe => {
   const newRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
   return newRecipe;
 });
 const allRecipes = new Reciperepo(repo);
-
 const ingredientList = ingredientsData.map(ingredient => {
   const newIngredient = new Ingredient(ingredient);
   return newIngredient;
@@ -23,10 +21,7 @@ const userTab = document.querySelector('#userTab');
 const userFilter = document.querySelector('#filterList');
 const userGreeting = document.querySelector("#userGreeting");
 const headsUp = document.querySelector('#headsUp');
-const favoriteButton = document.querySelector('#favoriteIcon');
-const toCookButton = document.querySelector('#toCookButton');
 
-// Event listeners
 window.addEventListener('load', displayHomePage);
 searchIcon.addEventListener('click', toggleSearchTab);
 searchButton.addEventListener('click', searchRecipes);
@@ -54,19 +49,6 @@ recipeList.addEventListener('click', function(event) {
   }
 });
 
-
-// FUNCTIONS
-
-function displayUserTab() {
-  //reveals user tab under header and above current recipe recipe list
-  // has buttons to that call updateRecipeList(user.toCook) or updateRecipeList(favorites)
-}
-
-function toggleSearchTab() {
-  toggleClass(searchTab, 'hidden');
-  toggleClass(searchIcon, 'user-icon-active')
-}
-
 function searchRecipes() {
   const searchInput = searchBar.value;
   const rawTerms = searchInput.split(',');
@@ -76,13 +58,13 @@ function searchRecipes() {
   let nameResults = [];
   let ingredientResults = [];
   if (searchList.value === 'all') {
-     tagResults = allRecipes.returnTagList(searchTerms) || [];
-     nameResults = allRecipes.returnNameList(searchTerms) || [];
+    tagResults = allRecipes.returnTagList(searchTerms) || [];
+    nameResults = allRecipes.returnNameList(searchTerms) || [];
   } else if (searchList.value === 'fav') {
-     tagResults = searchTerms.reduce((total, term ) => {
-       let currentResults = currentUser.filterFavoriteRecipesByTag(term, currentUser.favoriteRecipes)
-       return currentResults
-     }, []);
+    tagResults = searchTerms.reduce((total, term ) => {
+      let currentResults = currentUser.filterFavoriteRecipesByTag(term, currentUser.favoriteRecipes)
+      return currentResults
+    }, []);
     nameResults = searchTerms.reduce((total, term) => {
       let currentNameResults = currentUser.filterFavoriteRecipesByName(term, currentUser.favoriteRecipes)
       return currentNameResults
@@ -159,11 +141,11 @@ function updateHeadsUp(message) {
   headsUp.innerHTML = `<h2>${message}</h2>`
 }
 
-  function updateRecipeList(recipes) {
-    recipeList.innerHTML = '';
-    recipes.forEach(recipe => {
-      const tagList = cleanUpTagArr(recipe.tags);
-      const cardText = `
+function updateRecipeList(recipes) {
+  recipeList.innerHTML = '';
+  recipes.forEach(recipe => {
+    const tagList = cleanUpTagArr(recipe.tags);
+    const cardText = `
       <div id="${recipe.id}" class="recipe-card-small hover">
         <img class="card-image" src=${recipe.image} alt=${recipe.name}>
         <h3>${recipe.name}</h3>
@@ -176,8 +158,8 @@ function updateHeadsUp(message) {
         </div>
       </div>`
     recipeList.innerHTML += cardText;
-    })
-  }
+  })
+}
 
 function cleanUpTagArr(tagArray) {
   if (tagArray.length === 0) {
@@ -200,10 +182,6 @@ function displayHomePage() {
     removeClass(searchIcon, 'user-icon-active')
     updateRecipeList(allRecipes.recipeList);
   }
-
-  function pageLoad() {
-  displayHomePage();
-}
 
 function displaySingleRecipe(recipe) {
   hide(recipeList);
@@ -241,45 +219,41 @@ function displaySingleRecipe(recipe) {
         </ol>
       </section>
     </div>`
-    singleRecipe.innerHTML += cardText;
-  }
+  singleRecipe.innerHTML += cardText;
+}
 
- function formatIngredientList(ingredients) {
-   let formattedList = '';
-   ingredients.forEach(ingredient => {
-     formattedList += `<li>${ingredient}</li>`;
-   });
-   return formattedList;
- };
+function formatIngredientList(ingredients) {
+  let formattedList = '';
+  ingredients.forEach(ingredient => {
+    formattedList += `<li>${ingredient}</li>`;
+  });
+  return formattedList;
+}
 
- function formatDirections(directions) {
-   let formattedList = '';
-   directions.forEach(direction => {
-     formattedList += `<li>${direction}</li>`
-   });
-   return formattedList;
-};
+function formatDirections(directions) {
+  let formattedList = '';
+  directions.forEach(direction => {
+    formattedList += `<li>${direction}</li>`
+  });
+  return formattedList;
+}
 
-  function toggleHide(element) {
-    return element.classList.toggle('hidden');
-  }
+function hide(element) {
+  return element.classList.add('hidden');
+}
 
-  function hide(element) {
-    return element.classList.add('hidden');
-  }
+function unhide(element) {
+  return element.classList.remove('hidden');
+}
 
-  function unhide(element) {
-    return element.classList.remove('hidden');
-  }
+function toggleClass(element, className) {
+  return element.classList.toggle(className);
+}
 
-  function toggleClass(element, className) {
-    return element.classList.toggle(className);
-  }
+function removeClass(element, className) {
+  return element.classList.remove(className)
+}
 
-  function removeClass(element, className) {
-    return element.classList.remove(className)
-  }
-
-  function getRandomIndex(array) {
-    return Math.floor(Math.random() * array.length);
-  }
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length);
+}

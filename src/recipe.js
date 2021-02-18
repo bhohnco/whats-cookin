@@ -32,13 +32,12 @@ class Recipe {
         }
       });
     });
-    return totalCost/100;
+    return totalCost / 100;
   }
 
   getInstructions() {
     let detailList = [];
     this.instructions.forEach(instruction => {
-      const step = instruction.number
       detailList.push(`${instruction.instruction} `)
     });
     return detailList;

@@ -57,7 +57,7 @@ describe('Recipe Repo', function() {
     it('should return a filtered list based on tags', function() {
       const tagArray = [tag1, tag2, tag3];
 
-      const tagList = recipeRepo.returnTagList(tagArray); //array of recipes
+      const tagList = recipeRepo.returnTagList(tagArray);
       expect(tagList[0]).to.equal(recipe1);
       expect(tagList[1]).to.equal(recipe4);
 
