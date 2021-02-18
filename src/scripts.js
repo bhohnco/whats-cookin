@@ -79,6 +79,7 @@ function searchRecipes() {
     return mergeResults.indexOf(result) === index;
   });
   displaySearchResults(searchTerms, searchResults);
+}
 
 function userRecipeFilter(id) {
   if (id === 'all') {
