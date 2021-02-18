@@ -16,21 +16,31 @@ const searchIcon = document.querySelector('#searchIcon');
 const searchTab = document.querySelector('#searchTab');
 const searchButton = document.querySelector('#searchButton');
 const searchBar = document.querySelector('#searchBar');
+const userIcon = document.querySelector('#userIcon');
+const userTab = document.querySelector('#userTab');
+const userFilter = document.querySelector('#filterList');
+const userGreeting = document.querySelector("#userGreeting");
 const headsUp = document.querySelector('#headsUp');
 
 window.addEventListener('load', displayHomePage);
 searchIcon.addEventListener('click', toggleSearchTab);
 searchButton.addEventListener('click', searchRecipes);
+userIcon.addEventListener('click', toggleUserTab);
 homeButton.addEventListener('click', displayHomePage);
+userFilter.addEventListener('click', function(event) {
+  console.log(event.target.id);
+  userRecipeFilter(event.target.id);
+});
 recipeList.addEventListener('click', function(event) {
   let id = 0;
+  let recipe = 0;
   if (event.target.parentNode.id) {
     id = event.target.parentNode.id;
-    const recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
+    recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
     displaySingleRecipe(recipe);
   } else if (event.target.parentNode.parentNode.id) {
     id = event.target.parentNode.parentNode.id;
-    const recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
+    recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
     displaySingleRecipe(recipe);
   } else {
     id = event.target.parentNode.parentNode.parentNode.id;
@@ -38,11 +48,6 @@ recipeList.addEventListener('click', function(event) {
     saveRecipe(id, button);
   }
 });
-
-function toggleSearchTab() {
-  toggleClass(searchTab, 'hidden');
-  toggleClass(searchIcon, 'user-icon-active')
-}
 
 function searchRecipes() {
   const searchInput = searchBar.value;
@@ -74,6 +79,18 @@ function searchRecipes() {
     return mergeResults.indexOf(result) === index;
   });
   displaySearchResults(searchTerms, searchResults);
+
+function userRecipeFilter(id) {
+  if (id === 'all') {
+    updateRecipeList(allRecipes.recipeList);
+  } else if (id === 'fav') {
+    updateHeadsUp('My favorites');
+    updateRecipeList(currentUser.favoriteRecipes);
+  } else {
+    updateHeadsUp('My recipes to cook');
+    updateRecipeList(currentUser.recipesToCook);
+  }
+
 }
 
 function saveRecipe(id, button) {
@@ -89,22 +106,38 @@ function saveRecipe(id, button) {
   }
 }
 
-function displaySearchResults(terms, recipes) {
-  const termsToDisplay = terms.map(term => {
-    return " '" + `${term}` + "'";
-  });
-  toggleSearchTab();
-  unhide(headsUp);
-  if (recipes.length > 0) {
-    updateHeadsUp(`Search results for ${termsToDisplay}`);
-  } else {
-    updateHeadsUp(`Sorry, there were no results for ${termsToDisplay}`)
+  function toggleUserTab() {
+    userGreeting.innerText = `Hello ${currentUser.name}.`;
+    hide(searchTab);
+    removeClass(searchIcon, 'search-icon-active')
+    toggleClass(userTab, 'hidden');
+    toggleClass(userIcon, 'user-icon-active')
   }
-  updateRecipeList(recipes);
-  searchBar.value = '';
-}
+
+  function toggleSearchTab() {
+    hide(userTab);
+    removeClass(userIcon, 'user-icon-active')
+    toggleClass(searchTab, 'hidden');
+    toggleClass(searchIcon, 'search-icon-active')
+  }
+
+ function displaySearchResults(terms, recipes) {
+    const termsToDisplay = terms.map(term => {
+      return " '"+`${term}`+"'";
+    });
+    toggleSearchTab();
+    unhide(headsUp);
+    if (recipes.length > 0) {
+      updateHeadsUp(`Search results for ${termsToDisplay}`);
+    } else {
+      updateHeadsUp(`Sorry, there were no results for ${termsToDisplay}`)
+    }
+    updateRecipeList(recipes);
+    searchBar.value = '';
+    }
 
 function updateHeadsUp(message) {
+  unhide(headsUp);
   headsUp.innerHTML = `<h2>${message}</h2>`
 }
 
@@ -114,7 +147,7 @@ function updateRecipeList(recipes) {
     const tagList = cleanUpTagArr(recipe.tags);
     const cardText = `
       <div id="${recipe.id}" class="recipe-card-small hover">
-        <img src=${recipe.image} alt=${recipe.name}>
+        <img class="card-image" src=${recipe.image} alt=${recipe.name}>
         <h3>${recipe.name}</h3>
         <div class="small-card-bottom">
           <div class="button-box">
@@ -140,13 +173,15 @@ function cleanUpTagArr(tagArray) {
 }
 
 function displayHomePage() {
-  hide(searchTab);
-  hide(headsUp);
-  hide(singleRecipe);
-  unhide(recipeList);
-  removeClass(searchIcon, 'user-icon-active')
-  updateRecipeList(allRecipes.recipeList);
-}
+    hide(userTab);
+    removeClass(userIcon, 'user-icon-active')
+    hide(searchTab);
+    hide(headsUp);
+    hide(singleRecipe);
+    unhide(recipeList);
+    removeClass(searchIcon, 'user-icon-active')
+    updateRecipeList(allRecipes.recipeList);
+  }
 
 function displaySingleRecipe(recipe) {
   hide(recipeList);
