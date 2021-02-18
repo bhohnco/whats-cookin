@@ -12,7 +12,6 @@ const ingredientList = ingredientsData.map(ingredient => {
 });
 
 const currentUser = new User(usersData[getRandomIndex(usersData)]);
-
 const homeButton = document.querySelector('#headerLogo');
 const recipeList = document.querySelector('#recipeList');
 const singleRecipe = document.querySelector('#singleRecipe')
