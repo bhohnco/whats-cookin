@@ -11,9 +11,6 @@ const ingredientList = ingredientsData.map(ingredient => {
 });
 
 const currentUser = new User(usersData[getRandomIndex(usersData)]);
-
-// DOM ELEMENTS
-
 const homeButton = document.querySelector('#headerLogo');
 const recipeList = document.querySelector('#recipeList');
 const singleRecipe = document.querySelector('#singleRecipe')
@@ -21,24 +18,34 @@ const searchIcon = document.querySelector('#searchIcon');
 const searchTab = document.querySelector('#searchTab');
 const searchButton = document.querySelector('#searchButton');
 const searchBar = document.querySelector('#searchBar');
+const userIcon = document.querySelector('#userIcon');
+const userTab = document.querySelector('#userTab');
+const userFilter = document.querySelector('#filterList');
+const userGreeting = document.querySelector("#userGreeting");
 const headsUp = document.querySelector('#headsUp');
-const favoriteButton = document.querySelector('#favoriteButton')
-const toCookButton = document.querySelector('#toCookButton')
+const favoriteButton = document.querySelector('#favoriteIcon');
+const toCookButton = document.querySelector('#toCookButton');
 
 // Event listeners
 window.addEventListener('load', displayHomePage);
 searchIcon.addEventListener('click', toggleSearchTab);
 searchButton.addEventListener('click', searchRecipes);
+userIcon.addEventListener('click', toggleUserTab);
 homeButton.addEventListener('click', displayHomePage);
+userFilter.addEventListener('click', function(event) {
+  console.log(event.target.id);
+  userRecipeFilter(event.target.id);
+});
 recipeList.addEventListener('click', function(event) {
   let id = 0;
+  let recipe = 0;
   if (event.target.parentNode.id) {
     id = event.target.parentNode.id;
-    const recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
+    recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
     displaySingleRecipe(recipe);
   } else if (event.target.parentNode.parentNode.id) {
     id = event.target.parentNode.parentNode.id;
-    const recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
+    recipe = allRecipes.recipeList.find(recipe => recipe.id === parseInt(id));
     displaySingleRecipe(recipe);
   } else {
     id = event.target.parentNode.parentNode.parentNode.id;
@@ -90,6 +97,18 @@ function searchRecipes() {
     return mergeResults.indexOf(result) === index;
   });
   displaySearchResults(searchTerms, searchResults);
+
+function userRecipeFilter(id) {
+  if (id === 'all') {
+    updateRecipeList(allRecipes.recipeList);
+  } else if (id === 'fav') {
+    updateHeadsUp('My favorites');
+    updateRecipeList(currentUser.favoriteRecipes);
+  } else {
+    updateHeadsUp('My recipes to cook');
+    updateRecipeList(currentUser.recipesToCook);
+  }
+
 }
 
 function saveRecipe(id, button) {
@@ -104,6 +123,21 @@ function saveRecipe(id, button) {
     currentUser.addToFavorites(recipe)
   }
 }
+
+  function toggleUserTab() {
+    userGreeting.innerText = `Hello ${currentUser.name}.`;
+    hide(searchTab);
+    removeClass(searchIcon, 'search-icon-active')
+    toggleClass(userTab, 'hidden');
+    toggleClass(userIcon, 'user-icon-active')
+  }
+
+  function toggleSearchTab() {
+    hide(userTab);
+    removeClass(userIcon, 'user-icon-active')
+    toggleClass(searchTab, 'hidden');
+    toggleClass(searchIcon, 'search-icon-active')
+  }
 
  function displaySearchResults(terms, recipes) {
     const termsToDisplay = terms.map(term => {
@@ -121,6 +155,7 @@ function saveRecipe(id, button) {
     }
 
 function updateHeadsUp(message) {
+  unhide(headsUp);
   headsUp.innerHTML = `<h2>${message}</h2>`
 }
 
@@ -130,7 +165,7 @@ function updateHeadsUp(message) {
       const tagList = cleanUpTagArr(recipe.tags);
       const cardText = `
       <div id="${recipe.id}" class="recipe-card-small hover">
-        <img src=${recipe.image} alt=${recipe.name}>
+        <img class="card-image" src=${recipe.image} alt=${recipe.name}>
         <h3>${recipe.name}</h3>
         <div class="small-card-bottom">
           <div class="button-box">
@@ -155,10 +190,9 @@ function cleanUpTagArr(tagArray) {
   }
 }
 
-function convertIdToName(id) {
-}
-
 function displayHomePage() {
+    hide(userTab);
+    removeClass(userIcon, 'user-icon-active')
     hide(searchTab);
     hide(headsUp);
     hide(singleRecipe);
