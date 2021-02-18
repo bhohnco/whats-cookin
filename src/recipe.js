@@ -1,4 +1,3 @@
-
 class Recipe {
   constructor(id, image, ingredients, instructions, name, tags) {
     this.id = id;
